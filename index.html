@@ -345,97 +345,93 @@
         </div>
 
         <!-- NEW: Growth Scenarios & Strategic Recommendations (Appears when Revenue > 0) -->
-        <div id="ideal-growth-card" class="hidden mt-4 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div class="p-1.5 bg-indigo-100 text-indigo-600 rounded-md"><i data-lucide="rocket" class="w-4 h-4"></i></div>
-                    <h3 class="text-base font-bold text-slate-800">Growth Scenarios</h3>
+        <div id="ideal-growth-card" class="hidden mt-6 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-5 md:p-6 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-indigo-100 text-indigo-600 rounded-lg"><i data-lucide="rocket" class="w-5 h-5"></i></div>
+                    <h3 class="text-lg font-bold text-slate-800">Growth Scenarios & Tips</h3>
                 </div>
-                <p class="text-xs font-medium text-slate-500 hidden md:block">Simulated impact of operational improvements.</p>
+                <p class="text-sm font-medium text-slate-500 hidden md:block">Simulated impact of operational improvements.</p>
             </div>
             
-            <div class="p-4 space-y-4">
+            <div class="p-5 md:p-6 space-y-6">
                 <!-- Desktop Grid Layout for Scenarios -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
                     
                     <!-- Scenario 1 -->
-                    <div class="p-4 rounded-lg border border-slate-200 bg-slate-50 hover:border-slate-300 transition-all flex flex-col justify-between">
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-6 h-6 rounded-full bg-white border border-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold shadow-sm">1</div>
+                    <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 hover:border-slate-300 transition-all flex flex-col justify-between">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="w-7 h-7 rounded-full bg-white border border-slate-200 text-slate-600 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">1</div>
                             <div>
-                                <h4 class="text-sm font-bold text-slate-800">20% Margin</h4>
-                                <p class="text-[10px] text-slate-500 font-medium">Existing Top Line</p>
+                                <h4 class="text-base font-bold text-slate-800">20% Margin</h4>
+                                <p class="text-xs text-slate-500 font-medium mt-0.5">with existing Top Line</p>
                             </div>
                         </div>
-                        <div class="mt-2 pt-2 border-t border-slate-200">
-                            <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Projected Net</p>
-                            <span id="ideal-scen1-profit" class="text-lg font-bold text-slate-800">₹0.00</span>
+                        <div class="mt-2 pt-3 border-t border-slate-200">
+                            <p class="text-[11px] text-slate-400 font-semibold uppercase tracking-wider mb-1">Projected Net</p>
+                            <span id="ideal-scen1-profit" class="text-2xl font-bold text-slate-800">₹0.00</span>
                         </div>
                     </div>
                     
                     <!-- Scenario 2 -->
-                    <div class="p-4 rounded-lg border border-slate-200 bg-slate-50 hover:border-slate-300 transition-all flex flex-col justify-between">
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-6 h-6 rounded-full bg-white border border-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold shadow-sm">2</div>
+                    <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 hover:border-slate-300 transition-all flex flex-col justify-between">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="w-7 h-7 rounded-full bg-white border border-slate-200 text-slate-600 flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">2</div>
                             <div>
-                                <h4 class="text-sm font-bold text-slate-800">+₹50k Top Line</h4>
-                                <p class="text-[10px] text-slate-500 font-medium">Existing Margin</p>
+                                <h4 class="text-base font-bold text-slate-800">+₹50,000 Top Line</h4>
+                                <p class="text-xs text-slate-500 font-medium mt-0.5">with existing Margin</p>
                             </div>
                         </div>
-                        <div class="mt-2 pt-2 border-t border-slate-200">
-                            <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Projected Net</p>
-                            <span id="ideal-scen2-profit" class="text-lg font-bold text-slate-800">₹0.00</span>
+                        <div class="mt-2 pt-3 border-t border-slate-200">
+                            <p class="text-[11px] text-slate-400 font-semibold uppercase tracking-wider mb-1">Projected Net</p>
+                            <span id="ideal-scen2-profit" class="text-2xl font-bold text-slate-800">₹0.00</span>
                         </div>
                     </div>
 
                     <!-- Scenario 3 (Best Case) -->
-                    <div class="relative p-4 rounded-lg border border-indigo-200 bg-indigo-50 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden">
-                        <div class="absolute top-0 right-0 px-2 py-0.5 bg-indigo-600 text-white text-[9px] font-bold uppercase tracking-widest rounded-bl-md">Optimal</div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-sm">3</div>
+                    <div class="relative p-5 rounded-xl border border-indigo-200 bg-indigo-50 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden">
+                        <div class="absolute top-0 right-0 px-3 py-1 bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">Optimal</div>
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shadow-sm flex-shrink-0">3</div>
                             <div>
-                                <h4 class="text-sm font-bold text-indigo-900">Combined</h4>
-                                <p class="text-[10px] text-indigo-600/80 font-medium">20% Mgn & +₹50k TL</p>
+                                <h4 class="text-base font-bold text-indigo-900">Both 20% Margin</h4>
+                                <p class="text-xs text-indigo-600/80 font-medium mt-0.5">& +₹50,000 Top Line</p>
                             </div>
                         </div>
-                        <div class="mt-2 pt-2 border-t border-indigo-200">
-                            <p class="text-[10px] text-indigo-500/80 font-semibold uppercase tracking-wider">Projected Net</p>
-                            <span id="ideal-scen3-profit" class="text-xl font-bold text-indigo-700">₹0.00</span>
+                        <div class="mt-2 pt-3 border-t border-indigo-200">
+                            <p class="text-[11px] text-indigo-500/80 font-semibold uppercase tracking-wider mb-1">Projected Net</p>
+                            <span id="ideal-scen3-profit" class="text-3xl font-bold text-indigo-700">₹0.00</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Strategic Recommendations (Tip Cards) -->
-                <div class="pt-4 border-t border-slate-200">
-                    <h4 class="font-bold text-xs text-slate-500 uppercase tracking-widest flex items-center gap-1.5 mb-3">
-                        <i data-lucide="lightbulb" class="w-3 h-3"></i> Strategic Tips
+                <div class="pt-6 border-t border-slate-200">
+                    <h4 class="font-bold text-sm text-slate-800 flex items-center gap-2 mb-4">
+                        <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i> Strategic Recommendations
                     </h4>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                         <!-- Top Line Tips -->
-                        <div class="bg-white p-4 rounded-lg border border-emerald-100 shadow-sm">
-                            <div class="flex items-center gap-2 mb-2">
+                        <div class="bg-white p-5 rounded-xl border border-emerald-100 shadow-sm">
+                            <div class="flex items-center gap-2 mb-3">
                                 <div class="bg-emerald-100 p-1.5 rounded-md text-emerald-600"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
-                                <h5 class="text-sm font-bold text-slate-800">Improve Top Line:</h5>
+                                <h5 class="text-sm font-bold text-slate-800">To Improve Top Line:</h5>
                             </div>
-                            <ul class="space-y-1.5">
-                                <li class="flex gap-2 text-xs text-slate-600"><div class="w-1 h-1 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></div> Focus on making add-on sales.</li>
-                                <li class="flex gap-2 text-xs text-slate-600"><div class="w-1 h-1 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></div> Push high-value & high-margin products.</li>
-                                <li class="flex gap-2 text-xs text-slate-600"><div class="w-1 h-1 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></div> Implement cross-selling & up-selling.</li>
-                            </ul>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Focus on making add-on sales, pushing high-value & high-margin products, cross-selling, and up-selling.
+                            </p>
                         </div>
 
                         <!-- Margin Tips -->
-                        <div class="bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
-                            <div class="flex items-center gap-2 mb-2">
+                        <div class="bg-white p-5 rounded-xl border border-indigo-100 shadow-sm">
+                            <div class="flex items-center gap-2 mb-3">
                                 <div class="bg-indigo-100 p-1.5 rounded-md text-indigo-600"><i data-lucide="percent" class="w-4 h-4"></i></div>
-                                <h5 class="text-sm font-bold text-slate-800">Improve Margin:</h5>
+                                <h5 class="text-sm font-bold text-slate-800">To Improve Margin:</h5>
                             </div>
-                            <ul class="space-y-1.5">
-                                <li class="flex gap-2 text-xs text-slate-600"><div class="w-1 h-1 rounded-full bg-indigo-500 mt-1.5 flex-shrink-0"></div> Improve private label sales.</li>
-                                <li class="flex gap-2 text-xs text-slate-600"><div class="w-1 h-1 rounded-full bg-indigo-500 mt-1.5 flex-shrink-0"></div> Offer alternate promotions for brands.</li>
-                                <li class="flex gap-2 text-xs text-slate-600"><div class="w-1 h-1 rounded-full bg-indigo-500 mt-1.5 flex-shrink-0"></div> Explain clear price comparisons.</li>
-                            </ul>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Focus on improving private label (MHS Products) sales, alternate promotions for regular brands, and explaining price comparisons to customers.
+                            </p>
                         </div>
                     </div>
                 </div>
