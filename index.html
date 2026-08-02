@@ -330,38 +330,86 @@
                             Growth Scenarios & Tips
                         </h3>
                         
-                        <!-- Beautiful Scenario Blocks -->
-                        <div class="space-y-3 mb-6">
+                        <!-- Beautiful Scenario Blocks (Now with Dropdowns) -->
+                        <div class="space-y-3">
                             
-                            <!-- Scenario 1 -->
-                            <div class="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:border-slate-200 transition-colors">
-                                <div class="flex items-center gap-3 w-2/3">
-                                    <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="percent" class="w-4 h-4"></i>
+                            <!-- Scenario 1: Margin Improvement -->
+                            <div class="rounded-xl border border-slate-100 bg-slate-50 transition-all overflow-hidden group">
+                                <div class="flex items-center justify-between p-3.5 cursor-pointer hover:bg-slate-100 transition-colors" onclick="toggleDropdown('margin-tips', 'chevron-margin')">
+                                    <div class="flex items-center gap-3 w-2/3">
+                                        <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="percent" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="leading-tight">
+                                            <p class="text-sm font-bold text-slate-700">20% Margin</p>
+                                            <p class="text-xs text-slate-500 font-medium mt-0.5 group-hover:text-slate-600">Click to view tips</p>
+                                        </div>
                                     </div>
-                                    <div class="leading-tight">
-                                        <p class="text-sm font-bold text-slate-700">20% Margin</p>
-                                        <p class="text-xs text-slate-500 font-medium mt-0.5">with existing Top Line</p>
+                                    <div class="text-right flex-shrink-0 flex items-center gap-3">
+                                        <span id="ideal-scen1-profit" class="block font-bold text-base">₹0.00</span>
+                                        <i data-lucide="chevron-down" id="chevron-margin" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
                                     </div>
                                 </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span id="ideal-scen1-profit" class="block font-bold text-base">₹0.00</span>
+                                <!-- Dropdown Content: Margin Tips -->
+                                <div id="margin-tips" class="hidden bg-indigo-50/30 p-4 border-t border-indigo-100/50">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="bg-indigo-100 p-1.5 rounded-md text-indigo-600"><i data-lucide="tag" class="w-4 h-4"></i></div>
+                                        <p class="text-xs font-bold text-indigo-800 uppercase tracking-wider">To Improve Margin</p>
+                                    </div>
+                                    <ul class="text-sm text-slate-600 space-y-2 list-none">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-indigo-500 mt-0.5">•</span>
+                                            <span class="leading-snug">Boost private label <strong>(MHS Products)</strong> sales.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-indigo-500 mt-0.5">•</span>
+                                            <span class="leading-snug">Run alternate promotions for regular brands.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-indigo-500 mt-0.5">•</span>
+                                            <span class="leading-snug">Explain value & price comparisons directly to customers.</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             
-                            <!-- Scenario 2 -->
-                            <div class="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:border-slate-200 transition-colors">
-                                <div class="flex items-center gap-3 w-2/3">
-                                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            <!-- Scenario 2: Top Line Improvement -->
+                            <div class="rounded-xl border border-slate-100 bg-slate-50 transition-all overflow-hidden group">
+                                <div class="flex items-center justify-between p-3.5 cursor-pointer hover:bg-slate-100 transition-colors" onclick="toggleDropdown('topline-tips', 'chevron-topline')">
+                                    <div class="flex items-center gap-3 w-2/3">
+                                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="leading-tight">
+                                            <p id="scen2-title" class="text-sm font-bold text-slate-700">+₹50,000 Top Line</p>
+                                            <p class="text-xs text-slate-500 font-medium mt-0.5 group-hover:text-slate-600">Click to view tips</p>
+                                        </div>
                                     </div>
-                                    <div class="leading-tight">
-                                        <p id="scen2-title" class="text-sm font-bold text-slate-700">+₹50,000 Top Line</p>
-                                        <p class="text-xs text-slate-500 font-medium mt-0.5">with existing Margin</p>
+                                    <div class="text-right flex-shrink-0 flex items-center gap-3">
+                                        <span id="ideal-scen2-profit" class="block font-bold text-base">₹0.00</span>
+                                        <i data-lucide="chevron-down" id="chevron-topline" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
                                     </div>
                                 </div>
-                                <div class="text-right flex-shrink-0">
-                                    <span id="ideal-scen2-profit" class="block font-bold text-base">₹0.00</span>
+                                <!-- Dropdown Content: Top Line Tips -->
+                                <div id="topline-tips" class="hidden bg-emerald-50/30 p-4 border-t border-emerald-100/50">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="bg-emerald-100 p-1.5 rounded-md text-emerald-600"><i data-lucide="shopping-bag" class="w-4 h-4"></i></div>
+                                        <p class="text-xs font-bold text-emerald-800 uppercase tracking-wider">To Improve Top Line</p>
+                                    </div>
+                                    <ul class="text-sm text-slate-600 space-y-2 list-none">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-emerald-500 mt-0.5">•</span>
+                                            <span class="leading-snug">Focus on making <strong>add-on sales</strong> at checkout.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-emerald-500 mt-0.5">•</span>
+                                            <span class="leading-snug">Push high-value & high-margin products.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-emerald-500 mt-0.5">•</span>
+                                            <span class="leading-snug">Train staff in <strong>cross-selling</strong> and up-selling techniques.</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -383,60 +431,6 @@
                             </div>
 
                         </div>
-
-                        <!-- Strategic Recommendations Grid -->
-                        <div class="pt-5 border-t border-slate-100">
-                            <h4 class="font-semibold text-sm text-slate-800 flex items-center gap-2 mb-4">
-                                <i data-lucide="lightbulb" class="text-amber-500 w-4 h-4"></i> Strategic Recommendations
-                            </h4>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <!-- Top Line Tips -->
-                                <div class="bg-gradient-to-b from-emerald-50 to-white rounded-xl p-4 border border-emerald-100 shadow-sm">
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <div class="bg-emerald-100 p-1.5 rounded-md text-emerald-600"><i data-lucide="shopping-bag" class="w-4 h-4"></i></div>
-                                        <p class="text-xs font-bold text-emerald-800 uppercase tracking-wider">To Improve Top Line</p>
-                                    </div>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-none">
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Focus on making <strong>add-on sales</strong> at checkout.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Push high-value & high-margin products.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Train staff in <strong>cross-selling</strong> and up-selling techniques.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <!-- Margin Tips -->
-                                <div class="bg-gradient-to-b from-indigo-50 to-white rounded-xl p-4 border border-indigo-100 shadow-sm">
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <div class="bg-indigo-100 p-1.5 rounded-md text-indigo-600"><i data-lucide="tag" class="w-4 h-4"></i></div>
-                                        <p class="text-xs font-bold text-indigo-800 uppercase tracking-wider">To Improve Margin</p>
-                                    </div>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-none">
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-indigo-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Boost private label <strong>(MHS Products)</strong> sales.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-indigo-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Run alternate promotions for regular brands.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-indigo-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Explain value & price comparisons directly to customers.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
@@ -735,6 +729,20 @@
 
             } else {
                 idealGrowthCard.classList.add('hidden');
+            }
+        }
+
+        // Logic for opening dropdown lists in Ideal Growth Card
+        function toggleDropdown(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
             }
         }
 
