@@ -38,19 +38,42 @@
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen pb-6">
 
     <!-- Sticky Desktop Header -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <!-- Multi-colored accent line -->
         <div class="h-1 w-full bg-gradient-to-r from-indigo-500 via-emerald-500 to-amber-500"></div>
-        <div class="max-w-7xl mx-auto px-3 md:px-6 h-12 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="bg-indigo-600 p-1.5 rounded-md text-white shadow-sm shadow-indigo-200 flex-shrink-0">
-                    <i data-lucide="calculator" class="w-4 h-4"></i>
+        <div class="max-w-7xl mx-auto px-3 md:px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            
+            <!-- Header Left: Logo and Title -->
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 p-2 rounded-lg text-white shadow-sm shadow-indigo-200 flex-shrink-0">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
                 </div>
-                <h1 class="text-lg font-bold text-slate-900">Retail ROI Analytics</h1>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">Retail ROI Analytics</h1>
+                    <div class="text-xs text-slate-500 font-medium">
+                        Real-time Financial Modeler
+                    </div>
+                </div>
             </div>
-            <div class="hidden md:block text-xs text-slate-500 font-medium">
-                Real-time Financial Modeler
+
+            <!-- Header Right: Desktop Status Widget (Hidden on Mobile) -->
+            <div class="status-card hidden md:flex p-2.5 px-4 rounded-xl text-white shadow-md bg-gradient-to-br from-rose-500 to-rose-600 shadow-rose-200 transition-colors duration-300 items-center gap-5 w-full md:w-auto md:min-w-[480px]">
+                <div class="flex-shrink-0 min-w-[120px]">
+                    <div class="flex items-center gap-1.5 mb-0.5">
+                        <h3 class="status-title text-sm font-bold opacity-90 tracking-wide">Net Loss</h3>
+                        <span class="px-1.5 py-0.5 rounded border border-white/30 bg-white/10 text-[9px] font-bold uppercase tracking-wider">Bottom Line</span>
+                    </div>
+                    <p class="main-amount text-2xl font-bold tracking-tight">₹0.00</p>
+                </div>
+                <div class="flex-1 border-l border-white/20 pl-4 text-xs opacity-95 leading-snug pr-2">
+                    <p class="status-message">Enter your financial data to see profitability.</p>
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="icon-profit hidden opacity-90 bg-white/20 p-1.5 rounded-full"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                    <div class="icon-loss opacity-90 bg-white/20 p-1.5 rounded-full"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
+                </div>
             </div>
+            
         </div>
     </header>
 
@@ -252,22 +275,22 @@
 
             <!-- Right Column: Dashboard & Results -->
             <div class="lg:col-span-5 space-y-4">
-                <div class="sticky top-16 space-y-4">
+                <div class="sticky top-24 space-y-4">
                     
-                    <!-- Main Profit/Loss Display -->
-                    <div id="status-card" class="p-4 rounded-xl text-white shadow-md bg-gradient-to-br from-rose-500 to-rose-600 shadow-rose-200 transition-colors duration-300">
+                    <!-- Main Profit/Loss Display (Mobile Only) -->
+                    <div class="status-card md:hidden p-4 rounded-xl text-white shadow-md bg-gradient-to-br from-rose-500 to-rose-600 shadow-rose-200 transition-colors duration-300">
                         <div class="flex items-center justify-between mb-2">
                             <!-- Net Profit/Loss as main text, Bottom Line as badge -->
                             <div class="flex items-center gap-1.5">
-                                <h3 id="status-title" class="text-base font-bold opacity-90 tracking-wide">Net Loss</h3>
+                                <h3 class="status-title text-base font-bold opacity-90 tracking-wide">Net Loss</h3>
                                 <span class="px-1.5 py-0.5 rounded border border-white/30 bg-white/10 text-[9px] font-bold uppercase tracking-wider">Bottom Line</span>
                             </div>
-                            <div id="icon-profit" class="hidden opacity-90"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
-                            <div id="icon-loss" class="opacity-90"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
+                            <div class="icon-profit hidden opacity-90"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                            <div class="icon-loss opacity-90"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
                         </div>
-                        <p id="main-amount" class="text-3xl font-bold tracking-tight overflow-hidden text-ellipsis">₹0.00</p>
+                        <p class="main-amount text-3xl font-bold tracking-tight overflow-hidden text-ellipsis">₹0.00</p>
                         <div class="mt-3 text-xs opacity-90 pt-3 border-t border-white/20">
-                            <p id="status-message">Enter your financial data to see profitability.</p>
+                            <p class="status-message">Enter your financial data to see profitability.</p>
                         </div>
                     </div>
 
@@ -605,38 +628,50 @@
             document.getElementById('pill-variable-total').innerText = formatCurrency(totalVariable);
             document.getElementById('pill-margin-total').innerText = formatCurrency(marginAmount);
 
-            // Update Main Dashboard
-            const statusCard = document.getElementById('status-card');
-            const statusTitle = document.getElementById('status-title');
-            const iconProfit = document.getElementById('icon-profit');
-            const iconLoss = document.getElementById('icon-loss');
-            const mainAmount = document.getElementById('main-amount');
-            const statusMessage = document.getElementById('status-message');
+            // Update Main Dashboard Widgets (Desktop Header & Mobile Body)
+            const statusCards = document.querySelectorAll('.status-card');
+            const statusTitles = document.querySelectorAll('.status-title');
+            const iconProfits = document.querySelectorAll('.icon-profit');
+            const iconLosses = document.querySelectorAll('.icon-loss');
+            const mainAmounts = document.querySelectorAll('.main-amount');
+            const statusMessages = document.querySelectorAll('.status-message');
             const summaryBottomTitle = document.getElementById('summary-bottom-title');
 
-            mainAmount.innerText = formatCurrency(Math.abs(currentProfit));
+            // Set amounts for all status widgets
+            mainAmounts.forEach(el => el.innerText = formatCurrency(Math.abs(currentProfit)));
 
+            // Handle widget background colors dynamically without overriding structural classes
+            statusCards.forEach(card => {
+                card.classList.remove('from-rose-500', 'to-rose-600', 'shadow-rose-200', 'from-emerald-500', 'to-emerald-600', 'shadow-emerald-200');
+                if (isProfitable && (currentProfit > 0 || revenue > 0)) {
+                    card.classList.add('from-emerald-500', 'to-emerald-600', 'shadow-emerald-200');
+                } else {
+                    card.classList.add('from-rose-500', 'to-rose-600', 'shadow-rose-200');
+                }
+            });
+
+            // Handle Profit vs Loss text and icons
             if (isProfitable && (currentProfit > 0 || revenue > 0)) {
-                statusCard.className = "p-6 rounded-2xl text-white shadow-lg bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-emerald-200 transition-colors duration-300";
-                statusTitle.innerText = "Net Profit";
+                statusTitles.forEach(el => el.innerText = "Net Profit");
                 summaryBottomTitle.innerText = "Net Profit";
-                iconProfit.classList.remove('hidden');
-                iconLoss.classList.add('hidden');
+                iconProfits.forEach(el => el.classList.remove('hidden'));
+                iconLosses.forEach(el => el.classList.add('hidden'));
             } else {
-                statusCard.className = "p-6 rounded-2xl text-white shadow-lg bg-gradient-to-br from-rose-500 to-rose-600 shadow-rose-200 transition-colors duration-300";
-                statusTitle.innerText = "Net Loss";
+                statusTitles.forEach(el => el.innerText = "Net Loss");
                 summaryBottomTitle.innerText = "Net Loss";
-                iconProfit.classList.add('hidden');
-                iconLoss.classList.remove('hidden');
+                iconProfits.forEach(el => el.classList.add('hidden'));
+                iconLosses.forEach(el => el.classList.remove('hidden'));
             }
 
+            // Define and apply status message
+            let msgText = "Enter your financial data to see profitability.";
             if (isProfitable && currentProfit > 0) {
-                statusMessage.innerHTML = `Great job! Your margin amount (${formatCurrency(marginAmount)}) easily covers your total expenses (${formatCurrency(totalExpenses)}).`;
+                msgText = `Great job! Your margin amount (${formatCurrency(marginAmount)}) easily covers your total expenses (${formatCurrency(totalExpenses)}).`;
             } else if (revenue > 0 || totalExpenses > 0) {
-                statusMessage.innerHTML = `Warning: Your margin amount (${formatCurrency(marginAmount)}) is <strong>below</strong> your total expenses (${formatCurrency(totalExpenses)}).`;
-            } else {
-                statusMessage.innerHTML = `Enter your financial data to see profitability.`;
+                msgText = `Warning: Your margin amount (${formatCurrency(marginAmount)}) is <strong>below</strong> your total expenses (${formatCurrency(totalExpenses)}).`;
             }
+            
+            statusMessages.forEach(el => el.innerHTML = msgText);
 
             document.getElementById('summary-revenue').innerText = formatCurrency(revenue);
             document.getElementById('summary-fixed').innerText = formatCurrency(totalFixed);
