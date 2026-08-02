@@ -21,466 +21,430 @@
         }
     </script>
     <style>
-        /* Custom scrollbar for staff list */
+        /* Custom scrollbars for internal overflow areas */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans min-h-screen">
+<body class="bg-slate-50 text-slate-900 font-sans h-screen flex flex-col overflow-x-hidden">
 
-    <!-- Desktop & Mobile Sticky Header -->
-    <header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-colors duration-300" id="main-header">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div class="flex flex-col sm:flex-row items-center justify-between md:justify-start gap-4 md:gap-8 w-full md:w-auto">
-                <div class="flex items-center gap-3">
-                    <div class="bg-indigo-600 p-2 rounded-lg text-white shadow-md shadow-indigo-200">
-                        <i data-lucide="calculator" class="w-5 h-5"></i>
+    <!-- Desktop & Mobile Compact Sticky Header -->
+    <header class="flex-shrink-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-colors duration-300" id="main-header">
+        <div class="max-w-[1600px] mx-auto px-4 py-2 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4">
+            
+            <div class="flex items-center justify-between w-full md:w-auto gap-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="bg-indigo-600 p-1.5 rounded-lg text-white shadow-md shadow-indigo-200">
+                        <i data-lucide="calculator" class="w-4 h-4"></i>
                     </div>
-                    <h1 class="text-xl font-bold text-slate-900 tracking-tight">Retail ROI Analytics</h1>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight leading-none">Retail ROI Analytics</h1>
                 </div>
                 
-                <!-- Timeframe Toggle -->
-                <div class="bg-slate-100 p-1 rounded-lg flex text-sm font-bold text-slate-500 border border-slate-200 flex-shrink-0">
-                    <button id="btn-time-monthly" class="px-3 py-1.5 rounded-md bg-white shadow-sm text-indigo-600 transition-all" onclick="setTimeframe('monthly')">Monthly</button>
-                    <button id="btn-time-annual" class="px-3 py-1.5 rounded-md hover:text-slate-700 transition-all" onclick="setTimeframe('annual')">Annual</button>
+                <!-- Compact Timeframe Toggle -->
+                <div class="bg-slate-100 p-0.5 rounded-lg flex text-xs font-bold text-slate-500 border border-slate-200 flex-shrink-0">
+                    <button id="btn-time-monthly" class="px-2.5 py-1 rounded-md bg-white shadow-sm text-indigo-600 transition-all" onclick="setTimeframe('monthly')">Monthly</button>
+                    <button id="btn-time-annual" class="px-2.5 py-1 rounded-md hover:text-slate-700 transition-all" onclick="setTimeframe('annual')">Annual</button>
                 </div>
             </div>
 
-            <!-- Integrated Net Profit Section -->
-            <div id="header-status-badge" class="flex items-center justify-between md:justify-end gap-4 px-5 py-2 rounded-xl text-white shadow-md bg-rose-500 transition-colors duration-300 w-full md:w-auto">
+            <!-- Integrated Net Profit Section (Scaled Down) -->
+            <div id="header-status-badge" class="flex items-center justify-between md:justify-end gap-3 px-4 py-1.5 rounded-lg text-white shadow-sm bg-rose-500 transition-colors duration-300 w-full md:w-auto">
                 <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <span id="status-title" class="text-sm font-bold opacity-100 tracking-wide uppercase">Net Loss</span>
-                        <span class="px-1.5 py-0.5 rounded border border-white/30 bg-white/20 text-[9px] font-bold uppercase tracking-wider">Bottom Line</span>
+                    <div class="flex items-center gap-1.5">
+                        <span id="status-title" class="text-xs font-bold opacity-100 tracking-wide uppercase">Net Loss</span>
+                        <span class="px-1 py-0.5 rounded border border-white/30 bg-white/20 text-[8px] font-bold uppercase tracking-wider">Bottom Line</span>
                     </div>
-                    <p id="main-amount" class="text-2xl font-bold tracking-tight">₹0.00</p>
+                    <p id="main-amount" class="text-xl font-bold tracking-tight leading-none mt-0.5">₹0.00</p>
                 </div>
-                <div id="icon-profit" class="hidden opacity-90"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
-                <div id="icon-loss" class="opacity-90"><i data-lucide="trending-down" class="w-7 h-7"></i></div>
+                <div id="icon-profit" class="hidden opacity-90"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+                <div id="icon-loss" class="opacity-90"><i data-lucide="trending-down" class="w-5 h-5"></i></div>
             </div>
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto p-4 md:p-8 space-y-8 mt-2">
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Main Full-Screen Layout Wrapper -->
+    <main class="flex-1 w-full max-w-[1600px] mx-auto p-2 sm:p-4 flex flex-col min-h-0">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden">
             
-            <!-- Left Column: Input Forms -->
-            <div class="lg:col-span-7 space-y-6">
-                
-                <!-- Fixed Expenses Card -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2 text-slate-800">
-                        <i data-lucide="building-2" class="text-indigo-500 w-5 h-5"></i> Fixed Expenses
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-                        
-                        <!-- PROPERTY RENT SECTION WITH GST TOGGLE -->
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-center h-6">
-                                <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                    <i data-lucide="building-2" class="text-slate-400 w-4 h-4"></i> Property & Infra Rent
-                                </label>
-                                <!-- GST Mode Switcher -->
-                                <div class="bg-slate-100 p-0.5 rounded-md flex text-[10px] font-bold text-slate-500 border border-slate-200">
-                                    <button id="btn-rent-with-gst" class="px-2 py-1 rounded bg-white shadow-sm text-indigo-600 transition-all" onclick="setRentGstMode('with')">Incl. GST</button>
-                                    <button id="btn-rent-without-gst" class="px-2 py-1 rounded hover:text-slate-700 transition-all" onclick="setRentGstMode('without')">+ 18% GST</button>
-                                </div>
-                            </div>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="rent" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-                        </div>
-
-                        <!-- DYNAMIC STAFF SALARY SECTION -->
-                        <div class="flex flex-col gap-1.5 row-span-2">
-                            <div class="flex justify-between items-center h-6">
-                                <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                    <i data-lucide="users" class="text-slate-400 w-4 h-4"></i> Staff Salary
-                                </label>
-                                <!-- Mode Switcher -->
-                                <div class="bg-slate-100 p-0.5 rounded-md flex text-[10px] font-bold text-slate-500 border border-slate-200">
-                                    <button id="btn-mode-total" class="px-2 py-1 rounded bg-white shadow-sm text-indigo-600 transition-all" onclick="setSalaryMode('total')">Total</button>
-                                    <button id="btn-mode-detailed" class="px-2 py-1 rounded hover:text-slate-700 transition-all" onclick="setSalaryMode('detailed')">Detailed</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Total Mode Input -->
-                            <div id="salary-total-container" class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="salary" placeholder="Total Amount" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-
-                            <!-- Detailed Staff Mode Inputs (Dynamic) -->
-                            <div id="salary-detailed-container" class="hidden flex-col gap-2 rounded-lg border border-slate-200 bg-slate-50 p-2">
-                                <div id="staff-list" class="flex flex-col gap-2 max-h-40 overflow-y-auto pr-1 custom-scrollbar">
-                                    <!-- Dynamic rows will be added here via JS -->
-                                </div>
-                                <button type="button" onclick="addStaffRow()" class="mt-1 text-xs flex items-center justify-center gap-1 text-indigo-600 bg-white hover:bg-indigo-50 py-1.5 rounded-md transition-colors border border-indigo-200 border-dashed w-full font-medium">
-                                    <i data-lucide="plus" class="w-3 h-3"></i> Add Employee
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Internet -->
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-slate-700 flex items-center gap-2 h-6">
-                                <i data-lucide="wifi" class="text-slate-400 w-4 h-4"></i> Internet & Cable
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="internet" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Fixed Expenses Total Pill -->
-                    <div class="mt-5 pt-4 border-t border-slate-100 flex justify-end">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 text-indigo-700 rounded-full font-semibold text-sm border border-indigo-100 shadow-sm transition-all">
-                            <i data-lucide="sigma" class="w-4 h-4 opacity-70"></i>
-                            <span>Total Fixed:</span>
-                            <span id="pill-fixed-total">₹0.00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Variable Expenses Card -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2 text-slate-800">
-                        <i data-lucide="zap" class="text-amber-500 w-5 h-5"></i> Variable Expenses
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                <i data-lucide="zap" class="text-slate-400 w-4 h-4"></i> Electricity
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="electricity" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                <i data-lucide="package" class="text-slate-400 w-4 h-4"></i> Stationary
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="stationary" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                <i data-lucide="shopping-cart" class="text-slate-400 w-4 h-4"></i> Miscellaneous
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="misc" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                <i data-lucide="megaphone" class="text-slate-400 w-4 h-4"></i> Marketing Exp.
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="marketing" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Variable Expenses Total Pill -->
-                    <div class="mt-5 pt-4 border-t border-slate-100 flex justify-end">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 text-amber-700 rounded-full font-semibold text-sm border border-amber-100 shadow-sm transition-all">
-                            <i data-lucide="sigma" class="w-4 h-4 opacity-70"></i>
-                            <span>Total Variable:</span>
-                            <span id="pill-variable-total">₹0.00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Revenue & Margin Card -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2 text-slate-800">
-                        <i data-lucide="trending-up" class="text-emerald-500 w-5 h-5"></i> Current Revenue & Margin
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex items-center gap-2">
-                                <label class="text-sm font-bold text-emerald-700 flex items-center gap-2">
-                                    <i data-lucide="indian-rupee" class="text-emerald-500 w-4 h-4"></i> Revenue Generated
-                                </label>
-                                <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-wide">Top Line</span>
-                            </div>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                                <input type="text" inputmode="decimal" id="revenue" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-emerald-300 bg-emerald-50/50 px-3 py-2 pl-7 text-emerald-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                <i data-lucide="percent" class="text-slate-400 w-4 h-4"></i> Margin % on Revenue
-                            </label>
-                            <div class="relative">
-                                <input type="text" inputmode="decimal" id="margin" placeholder="0.0" class="calc-input percent-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-500 font-medium">%</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Margin Amount Pill -->
-                    <div class="mt-5 pt-4 border-t border-slate-100 flex justify-end">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-full font-semibold text-sm border border-emerald-100 shadow-sm transition-all">
-                            <i data-lucide="wallet" class="w-4 h-4 opacity-70"></i>
-                            <span>Margin Amount:</span>
-                            <span id="pill-margin-total">₹0.00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Target Goal Card -->
-                <div class="bg-indigo-50 rounded-2xl border border-indigo-100 p-6">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center gap-2 text-indigo-900">
-                        <i data-lucide="target" class="text-indigo-600 w-5 h-5"></i> Target Goal
-                    </h2>
-                    <div class="w-full md:w-1/2 flex flex-col gap-1.5">
-                        <label class="text-sm font-medium text-slate-700 flex items-center gap-2">
-                            <i data-lucide="target" class="text-slate-400 w-4 h-4"></i> Desired Profit Amount
-                        </label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-medium">₹</div>
-                            <input type="text" inputmode="decimal" id="target" placeholder="0.00" class="calc-input currency-input w-full rounded-lg border border-slate-200 bg-white px-3 py-2 pl-7 text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Right Column: Dashboard & Results -->
-            <div class="lg:col-span-5 space-y-6">
-                <!-- Adjusted sticky top to accommodate larger header -->
-                <div class="sticky top-28 space-y-6">
+            <!-- LEFT COLUMN: Inputs Grid (2x2 on desktop) -->
+            <div class="lg:col-span-7 flex flex-col lg:h-full lg:overflow-y-auto custom-scrollbar pr-1 pb-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 h-full content-start">
                     
-                    <!-- Summary Metrics -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-4">Financial Summary</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center py-2 border-b border-slate-100 bg-emerald-50/50 px-2 rounded-lg">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-emerald-700 font-medium">Gross Revenue</span>
-                                    <span class="px-1.5 py-0.5 rounded bg-emerald-100/80 text-emerald-700 text-[10px] font-bold uppercase tracking-wide">Top Line</span>
-                                </div>
-                                <span id="summary-revenue" class="font-bold text-emerald-700">₹0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2 px-2">
-                                <span class="text-slate-500">Achieved Margin Amount</span>
-                                <span id="summary-margin" class="font-semibold text-indigo-600">₹0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2 px-2 border-b border-slate-100">
-                                <span class="text-slate-500">Total Fixed Expenses</span>
-                                <span id="summary-fixed" class="font-medium text-slate-700">₹0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2 px-2 border-b border-slate-100">
-                                <span class="text-slate-500">Total Variable Expenses</span>
-                                <span id="summary-variable" class="font-medium text-slate-700">₹0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center py-2 px-2 border-b border-slate-200">
-                                <span class="text-rose-600 font-medium">(-) Total Expenses</span>
-                                <span id="summary-expenses" class="font-bold text-rose-600">₹0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center py-3 px-2 bg-slate-50 rounded-lg border border-slate-200 mt-2">
-                                <div class="flex items-center gap-2">
-                                    <span id="summary-bottom-title" class="text-slate-800 font-bold">Net Loss</span>
-                                    <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-600 text-[10px] font-bold uppercase tracking-wide">Bottom Line</span>
-                                </div>
-                                <span id="summary-bottom-line" class="font-bold text-slate-900 text-lg">₹0.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Actionable Insights (Target Calculations) -->
-                    <div id="target-card" class="hidden bg-slate-800 rounded-2xl shadow-lg border border-slate-700 p-6 text-slate-100">
-                        <h3 class="text-lg font-semibold mb-4 text-white flex items-center gap-2">
-                            <i data-lucide="arrow-up-right" class="text-indigo-400 w-5 h-5"></i> 
-                            To hit <span id="target-title-amount">₹0.00</span> Profit:
-                        </h3>
-                        <div class="space-y-5">
-                            <div class="bg-slate-700/50 p-4 rounded-xl border border-slate-600">
-                                <p class="text-sm text-slate-300 mb-1">Scenario 1: Keep current margin at <span id="scen1-margin-pct">0</span>%</p>
-                                <p class="text-xl font-bold text-indigo-300 overflow-hidden text-ellipsis flex items-center flex-wrap gap-2">
-                                    Generate <span id="scen1-req-rev">₹0.00</span> Revenue
-                                    <span class="px-1.5 py-0.5 rounded bg-indigo-900/50 border border-indigo-500/30 text-indigo-300 text-[10px] font-bold uppercase tracking-wide">Top Line</span>
-                                </p>
-                            </div>
-                            <div class="bg-slate-700/50 p-4 rounded-xl border border-slate-600">
-                                <p class="text-sm text-slate-300 mb-1">Scenario 2: Keep current revenue at <span id="scen2-curr-rev">₹0.00</span></p>
-                                <p class="text-xl font-bold text-indigo-300">
-                                    Increase margin to <span id="scen2-req-margin">0.00</span>%
-                                </p>
-                                <p id="scen2-change-container" class="text-xs text-slate-400 mt-2 hidden">
-                                    (Requires a change of <span id="scen2-change-val" class="">0.00%</span> from current)
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ideal Scenarios & Growth Tips Card -->
-                    <div id="ideal-growth-card" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                        <h3 class="text-lg font-semibold mb-5 text-slate-800 flex items-center gap-2">
-                            <div class="bg-blue-100 text-blue-600 p-1.5 rounded-lg"><i data-lucide="rocket" class="w-4 h-4"></i></div>
-                            Growth Scenarios & Tips
-                        </h3>
+                    <!-- Fixed Expenses Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col h-full">
+                        <h2 class="text-base font-semibold mb-3 flex items-center gap-2 text-slate-800">
+                            <i data-lucide="building-2" class="text-indigo-500 w-4 h-4"></i> Fixed Expenses
+                        </h2>
                         
-                        <!-- Beautiful Scenario Blocks (Now with Dropdowns) -->
-                        <div class="space-y-3">
-                            
-                            <!-- Scenario 1: Margin Improvement -->
-                            <div class="rounded-xl border border-slate-100 bg-slate-50 transition-all overflow-hidden group">
-                                <div class="flex items-center justify-between p-3.5 cursor-pointer hover:bg-slate-100 transition-colors" onclick="toggleDropdown('margin-tips', 'chevron-margin')">
-                                    <div class="flex items-center gap-3 w-2/3">
-                                        <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">
-                                            <i data-lucide="percent" class="w-4 h-4"></i>
-                                        </div>
-                                        <div class="leading-tight">
-                                            <p class="text-sm font-bold text-slate-700">20% Margin</p>
-                                            <p class="text-xs text-slate-500 font-medium mt-0.5 group-hover:text-slate-600">Click to view tips</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right flex-shrink-0 flex items-center gap-3">
-                                        <span id="ideal-scen1-profit" class="block font-bold text-base">₹0.00</span>
-                                        <i data-lucide="chevron-down" id="chevron-margin" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
+                        <div class="flex flex-col gap-3 flex-1 min-h-0">
+                            <!-- PROPERTY RENT -->
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between items-center">
+                                    <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                        <i data-lucide="building-2" class="text-slate-400 w-3 h-3"></i> Property Rent
+                                    </label>
+                                    <div class="bg-slate-100 p-0.5 rounded flex text-[9px] font-bold text-slate-500 border border-slate-200">
+                                        <button id="btn-rent-with-gst" class="px-1.5 py-0.5 rounded bg-white shadow-sm text-indigo-600 transition-all" onclick="setRentGstMode('with')">Incl. GST</button>
+                                        <button id="btn-rent-without-gst" class="px-1.5 py-0.5 rounded hover:text-slate-700 transition-all" onclick="setRentGstMode('without')">+ 18% GST</button>
                                     </div>
                                 </div>
-                                <!-- Dropdown Content: Margin Tips -->
-                                <div id="margin-tips" class="hidden bg-indigo-50/30 p-4 border-t border-indigo-100/50">
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <div class="bg-indigo-100 p-1.5 rounded-md text-indigo-600"><i data-lucide="tag" class="w-4 h-4"></i></div>
-                                        <p class="text-xs font-bold text-indigo-800 uppercase tracking-wider">To Improve Margin</p>
-                                    </div>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-none">
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-indigo-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Boost private label <strong>(MHS Products)</strong> sales.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-indigo-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Run alternate promotions for regular brands.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-indigo-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Explain value & price comparisons directly to customers.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- Scenario 2: Top Line Improvement -->
-                            <div class="rounded-xl border border-slate-100 bg-slate-50 transition-all overflow-hidden group">
-                                <div class="flex items-center justify-between p-3.5 cursor-pointer hover:bg-slate-100 transition-colors" onclick="toggleDropdown('topline-tips', 'chevron-topline')">
-                                    <div class="flex items-center gap-3 w-2/3">
-                                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
-                                            <i data-lucide="trending-up" class="w-4 h-4"></i>
-                                        </div>
-                                        <div class="leading-tight">
-                                            <p id="scen2-title" class="text-sm font-bold text-slate-700">+₹50,000 Top Line</p>
-                                            <p class="text-xs text-slate-500 font-medium mt-0.5 group-hover:text-slate-600">Click to view tips</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right flex-shrink-0 flex items-center gap-3">
-                                        <span id="ideal-scen2-profit" class="block font-bold text-base">₹0.00</span>
-                                        <i data-lucide="chevron-down" id="chevron-topline" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
-                                    </div>
-                                </div>
-                                <!-- Dropdown Content: Top Line Tips -->
-                                <div id="topline-tips" class="hidden bg-emerald-50/30 p-4 border-t border-emerald-100/50">
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <div class="bg-emerald-100 p-1.5 rounded-md text-emerald-600"><i data-lucide="shopping-bag" class="w-4 h-4"></i></div>
-                                        <p class="text-xs font-bold text-emerald-800 uppercase tracking-wider">To Improve Top Line</p>
-                                    </div>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-none">
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Focus on making <strong>add-on sales</strong> at checkout.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Push high-value & high-margin products.</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-0.5">•</span>
-                                            <span class="leading-snug">Train staff in <strong>cross-selling</strong> and up-selling techniques.</span>
-                                        </li>
-                                    </ul>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="rent" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
                                 </div>
                             </div>
 
-                            <!-- Scenario 3 (Highlighted) -->
-                            <div class="relative flex items-center justify-between p-4 rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 shadow-sm overflow-hidden">
-                                <div class="absolute top-0 right-0 px-2 py-0.5 bg-amber-200 text-amber-800 text-[9px] font-bold uppercase tracking-wider rounded-bl-lg">Best Case</div>
-                                <div class="flex items-center gap-3 w-2/3">
-                                    <div class="w-8 h-8 rounded-full bg-amber-200 text-amber-700 flex items-center justify-center flex-shrink-0 shadow-sm">
-                                        <i data-lucide="zap" class="w-4 h-4"></i>
-                                    </div>
-                                    <div class="leading-tight">
-                                        <p class="text-sm font-bold text-amber-900">Both Improvements</p>
-                                        <p id="scen3-subtitle" class="text-xs text-amber-700/80 font-medium mt-0.5">20% Margin & +₹50k Top Line</p>
+                            <!-- STAFF SALARY -->
+                            <div class="flex flex-col gap-1 flex-1 min-h-0">
+                                <div class="flex justify-between items-center">
+                                    <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                        <i data-lucide="users" class="text-slate-400 w-3 h-3"></i> Staff Salary
+                                    </label>
+                                    <div class="bg-slate-100 p-0.5 rounded flex text-[9px] font-bold text-slate-500 border border-slate-200">
+                                        <button id="btn-mode-total" class="px-1.5 py-0.5 rounded bg-white shadow-sm text-indigo-600 transition-all" onclick="setSalaryMode('total')">Total</button>
+                                        <button id="btn-mode-detailed" class="px-1.5 py-0.5 rounded hover:text-slate-700 transition-all" onclick="setSalaryMode('detailed')">Detailed</button>
                                     </div>
                                 </div>
-                                <div class="text-right flex-shrink-0 mt-2">
-                                    <span id="ideal-scen3-profit" class="block font-black text-lg">₹0.00</span>
+                                
+                                <div id="salary-total-container" class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="salary" placeholder="Total Amount" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
+                                </div>
+
+                                <div id="salary-detailed-container" class="hidden flex-col gap-1.5 rounded-lg border border-slate-200 bg-slate-50 p-1.5 flex-1 min-h-0 overflow-hidden">
+                                    <div id="staff-list" class="flex flex-col gap-1.5 flex-1 overflow-y-auto pr-1 custom-scrollbar">
+                                        <!-- Dynamic rows -->
+                                    </div>
+                                    <button type="button" onclick="addStaffRow()" class="mt-1 text-[10px] flex items-center justify-center gap-1 text-indigo-600 bg-white hover:bg-indigo-50 py-1 rounded-md transition-colors border border-indigo-200 border-dashed w-full font-medium">
+                                        <i data-lucide="plus" class="w-2.5 h-2.5"></i> Add Employee
+                                    </button>
                                 </div>
                             </div>
 
+                            <!-- INTERNET -->
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                    <i data-lucide="wifi" class="text-slate-400 w-3 h-3"></i> Internet
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="internet" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fixed Pills -->
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex justify-end">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full font-semibold text-xs border border-indigo-100 shadow-sm">
+                                <i data-lucide="sigma" class="w-3.5 h-3.5 opacity-70"></i>
+                                <span>Fixed Total:</span>
+                                <span id="pill-fixed-total">₹0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Variable Expenses Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col h-full">
+                        <h2 class="text-base font-semibold mb-3 flex items-center gap-2 text-slate-800">
+                            <i data-lucide="zap" class="text-amber-500 w-4 h-4"></i> Variable Expenses
+                        </h2>
+                        <div class="grid grid-cols-2 gap-x-2 gap-y-3">
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                    <i data-lucide="zap" class="text-slate-400 w-3 h-3"></i> Electricity
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="electricity" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20">
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                    <i data-lucide="package" class="text-slate-400 w-3 h-3"></i> Stationary
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="stationary" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20">
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                    <i data-lucide="shopping-cart" class="text-slate-400 w-3 h-3"></i> Misc
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="misc" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20">
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                    <i data-lucide="megaphone" class="text-slate-400 w-3 h-3"></i> Marketing
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                    <input type="text" inputmode="decimal" id="marketing" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-end">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 rounded-full font-semibold text-xs border border-amber-100 shadow-sm">
+                                <i data-lucide="sigma" class="w-3.5 h-3.5 opacity-70"></i>
+                                <span>Var Total:</span>
+                                <span id="pill-variable-total">₹0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Revenue & Margin Card -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-base font-semibold mb-3 flex items-center gap-2 text-slate-800">
+                                <i data-lucide="trending-up" class="text-emerald-500 w-4 h-4"></i> Revenue & Margin
+                            </h2>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-1.5">
+                                        <label class="text-xs font-bold text-emerald-700 flex items-center gap-1">
+                                            <i data-lucide="indian-rupee" class="text-emerald-500 w-3 h-3"></i> Revenue
+                                        </label>
+                                        <span class="px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 text-[8px] font-bold uppercase tracking-wide">Top Line</span>
+                                    </div>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                        <input type="text" inputmode="decimal" id="revenue" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-emerald-300 bg-emerald-50/50 px-2 py-1.5 pl-6 text-sm text-emerald-900 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/20">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                        <i data-lucide="percent" class="text-slate-400 w-3 h-3"></i> Margin %
+                                    </label>
+                                    <div class="relative">
+                                        <input type="text" inputmode="decimal" id="margin" placeholder="0.0" class="calc-input percent-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pr-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20">
+                                        <div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full font-semibold text-xs border border-emerald-100 shadow-sm">
+                                <i data-lucide="wallet" class="w-3.5 h-3.5 opacity-70"></i>
+                                <span>Margin Amt:</span>
+                                <span id="pill-margin-total">₹0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Target Goal Card -->
+                    <div class="bg-indigo-50 rounded-xl border border-indigo-100 p-4 flex flex-col justify-center">
+                        <h2 class="text-base font-semibold mb-3 flex items-center gap-2 text-indigo-900">
+                            <i data-lucide="target" class="text-indigo-600 w-4 h-4"></i> Target Goal
+                        </h2>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                                <i data-lucide="target" class="text-slate-400 w-3 h-3"></i> Desired Profit Amount
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
+                                <input type="text" inputmode="decimal" id="target" placeholder="0.00" class="calc-input currency-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-6 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20">
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
 
+            <!-- RIGHT COLUMN: Dashboard & Results -->
+            <div class="lg:col-span-5 flex flex-col lg:h-full lg:overflow-y-auto custom-scrollbar pr-1 pb-1 gap-3">
+                
+                <!-- Financial Summary -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex-shrink-0">
+                    <h3 class="text-base font-semibold text-slate-800 mb-2">Financial Summary</h3>
+                    <div class="space-y-1 text-sm">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-100 bg-emerald-50/50 px-2 rounded-lg">
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-700 font-medium">Gross Revenue</span>
+                                <span class="px-1.5 py-0.5 rounded bg-emerald-100/80 text-emerald-700 text-[9px] font-bold uppercase tracking-wide">Top Line</span>
+                            </div>
+                            <span id="summary-revenue" class="font-bold text-emerald-700">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 px-2">
+                            <span class="text-slate-500">Margin Amount</span>
+                            <span id="summary-margin" class="font-semibold text-indigo-600">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 px-2 border-b border-slate-100">
+                            <span class="text-slate-500">Fixed Expenses</span>
+                            <span id="summary-fixed" class="font-medium text-slate-700">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 px-2 border-b border-slate-100">
+                            <span class="text-slate-500">Variable Expenses</span>
+                            <span id="summary-variable" class="font-medium text-slate-700">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 px-2 border-b border-slate-200">
+                            <span class="text-rose-600 font-medium">(-) Total Expenses</span>
+                            <span id="summary-expenses" class="font-bold text-rose-600">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 px-2 bg-slate-50 rounded-lg border border-slate-200 mt-2">
+                            <div class="flex items-center gap-2">
+                                <span id="summary-bottom-title" class="text-slate-800 font-bold">Net Loss</span>
+                                <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-600 text-[9px] font-bold uppercase tracking-wide">Bottom Line</span>
+                            </div>
+                            <span id="summary-bottom-line" class="font-bold text-slate-900 text-base">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Calculations Insights -->
+                <div id="target-card" class="hidden bg-slate-800 rounded-xl shadow-lg border border-slate-700 p-4 text-slate-100 flex-shrink-0">
+                    <h3 class="text-base font-semibold mb-3 text-white flex items-center gap-2">
+                        <i data-lucide="arrow-up-right" class="text-indigo-400 w-4 h-4"></i> 
+                        To hit <span id="target-title-amount">₹0.00</span> Profit:
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                            <p class="text-xs text-slate-300 mb-0.5">Keep margin at <span id="scen1-margin-pct">0</span>%, requires:</p>
+                            <p class="text-lg font-bold text-indigo-300 flex items-center gap-2">
+                                <span id="scen1-req-rev">₹0.00</span> Revenue
+                                <span class="px-1 py-0.5 rounded bg-indigo-900/50 border border-indigo-500/30 text-indigo-300 text-[8px] font-bold uppercase tracking-wide">Top Line</span>
+                            </p>
+                        </div>
+                        <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                            <p class="text-xs text-slate-300 mb-0.5">Keep revenue at <span id="scen2-curr-rev">₹0.00</span>, requires:</p>
+                            <p class="text-lg font-bold text-indigo-300">
+                                <span id="scen2-req-margin">0.00</span>% Margin
+                            </p>
+                            <p id="scen2-change-container" class="text-[10px] text-slate-400 mt-1 hidden">
+                                (Change of <span id="scen2-change-val" class="">0.00%</span>)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ideal Scenarios & Growth Tips -->
+                <div id="ideal-growth-card" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex-shrink-0">
+                    <h3 class="text-base font-semibold mb-3 text-slate-800 flex items-center gap-2">
+                        <div class="bg-blue-100 text-blue-600 p-1 rounded"><i data-lucide="rocket" class="w-3.5 h-3.5"></i></div>
+                        Growth Scenarios & Tips
+                    </h3>
+                    
+                    <div class="space-y-2">
+                        <!-- Scenario 1 (Margin) -->
+                        <div class="rounded-lg border border-slate-100 bg-slate-50 transition-all overflow-hidden group">
+                            <div class="flex items-center justify-between p-2.5 cursor-pointer hover:bg-slate-100 transition-colors" onclick="toggleDropdown('margin-tips', 'chevron-margin')">
+                                <div class="flex items-center gap-2.5 w-2/3">
+                                    <div class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                    </div>
+                                    <div class="leading-none">
+                                        <p class="text-xs font-bold text-slate-700">20% Margin</p>
+                                        <p class="text-[10px] text-slate-500 font-medium mt-0.5">Click for tips</p>
+                                    </div>
+                                </div>
+                                <div class="text-right flex-shrink-0 flex items-center gap-2">
+                                    <span id="ideal-scen1-profit" class="block font-bold text-sm">₹0.00</span>
+                                    <i data-lucide="chevron-down" id="chevron-margin" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-300"></i>
+                                </div>
+                            </div>
+                            <div id="margin-tips" class="hidden bg-indigo-50/30 p-3 border-t border-indigo-100/50">
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-none">
+                                    <li class="flex items-start gap-1.5"><span class="text-indigo-500 mt-px">•</span><span class="leading-snug">Boost private label <strong>(MHS Products)</strong> sales.</span></li>
+                                    <li class="flex items-start gap-1.5"><span class="text-indigo-500 mt-px">•</span><span class="leading-snug">Run alternate promotions for regular brands.</span></li>
+                                    <li class="flex items-start gap-1.5"><span class="text-indigo-500 mt-px">•</span><span class="leading-snug">Explain value & price comparisons clearly.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Scenario 2 (Top Line) -->
+                        <div class="rounded-lg border border-slate-100 bg-slate-50 transition-all overflow-hidden group">
+                            <div class="flex items-center justify-between p-2.5 cursor-pointer hover:bg-slate-100 transition-colors" onclick="toggleDropdown('topline-tips', 'chevron-topline')">
+                                <div class="flex items-center gap-2.5 w-2/3">
+                                    <div class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+                                    </div>
+                                    <div class="leading-none">
+                                        <p id="scen2-title" class="text-xs font-bold text-slate-700">+₹50,000 Top Line</p>
+                                        <p class="text-[10px] text-slate-500 font-medium mt-0.5">Click for tips</p>
+                                    </div>
+                                </div>
+                                <div class="text-right flex-shrink-0 flex items-center gap-2">
+                                    <span id="ideal-scen2-profit" class="block font-bold text-sm">₹0.00</span>
+                                    <i data-lucide="chevron-down" id="chevron-topline" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-300"></i>
+                                </div>
+                            </div>
+                            <div id="topline-tips" class="hidden bg-emerald-50/30 p-3 border-t border-emerald-100/50">
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-none">
+                                    <li class="flex items-start gap-1.5"><span class="text-emerald-500 mt-px">•</span><span class="leading-snug">Focus on making <strong>add-on sales</strong> at checkout.</span></li>
+                                    <li class="flex items-start gap-1.5"><span class="text-emerald-500 mt-px">•</span><span class="leading-snug">Push high-value & high-margin products.</span></li>
+                                    <li class="flex items-start gap-1.5"><span class="text-emerald-500 mt-px">•</span><span class="leading-snug">Train staff in <strong>cross-selling</strong> techniques.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Scenario 3 (Both) -->
+                        <div class="relative flex items-center justify-between p-3 rounded-lg border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 shadow-sm overflow-hidden">
+                            <div class="absolute top-0 right-0 px-1.5 py-0.5 bg-amber-200 text-amber-800 text-[8px] font-bold uppercase tracking-wider rounded-bl">Best Case</div>
+                            <div class="flex items-center gap-2.5 w-2/3 mt-1">
+                                <div class="w-7 h-7 rounded-full bg-amber-200 text-amber-700 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <div class="leading-none">
+                                    <p class="text-xs font-bold text-amber-900">Both Improvements</p>
+                                    <p id="scen3-subtitle" class="text-[10px] text-amber-700/80 font-medium mt-0.5">20% Mgn & +₹50k Rev</p>
+                                </div>
+                            </div>
+                            <div class="text-right flex-shrink-0 mt-1">
+                                <span id="ideal-scen3-profit" class="block font-black text-base">₹0.00</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
+    </main>
 
     <!-- Application Logic -->
     <script>
         lucide.createIcons();
 
-        // State for modes
+        // State variables
         let currentSalaryMode = 'total'; 
-        let rentGstMode = 'with'; // 'with' or 'without'
-        let timeMultiplier = 1; // 1 for monthly, 12 for annual
+        let rentGstMode = 'with';
+        let timeMultiplier = 1;
 
-        // Timeframe Toggle Function
+        // Mode Toggles
         function setTimeframe(mode) {
             timeMultiplier = mode === 'annual' ? 12 : 1;
             const btnMonthly = document.getElementById('btn-time-monthly');
             const btnAnnual = document.getElementById('btn-time-annual');
 
             if (mode === 'monthly') {
-                btnMonthly.className = "px-3 py-1.5 rounded-md bg-white shadow-sm text-indigo-600 transition-all";
-                btnAnnual.className = "px-3 py-1.5 rounded-md hover:text-slate-700 transition-all";
+                btnMonthly.className = "px-2.5 py-1 rounded-md bg-white shadow-sm text-indigo-600 transition-all";
+                btnAnnual.className = "px-2.5 py-1 rounded-md hover:text-slate-700 transition-all";
             } else {
-                btnMonthly.className = "px-3 py-1.5 rounded-md hover:text-slate-700 transition-all";
-                btnAnnual.className = "px-3 py-1.5 rounded-md bg-white shadow-sm text-indigo-600 transition-all";
+                btnMonthly.className = "px-2.5 py-1 rounded-md hover:text-slate-700 transition-all";
+                btnAnnual.className = "px-2.5 py-1 rounded-md bg-white shadow-sm text-indigo-600 transition-all";
             }
             calculate();
         }
 
-        // Rent GST Toggle Function
         function setRentGstMode(mode) {
             rentGstMode = mode;
             const btnWith = document.getElementById('btn-rent-with-gst');
             const btnWithout = document.getElementById('btn-rent-without-gst');
 
             if (mode === 'with') {
-                btnWith.className = "px-2 py-1 rounded bg-white shadow-sm text-indigo-600 transition-all";
-                btnWithout.className = "px-2 py-1 rounded hover:text-slate-700 transition-all";
+                btnWith.className = "px-1.5 py-0.5 rounded bg-white shadow-sm text-indigo-600 transition-all";
+                btnWithout.className = "px-1.5 py-0.5 rounded hover:text-slate-700 transition-all";
             } else {
-                btnWith.className = "px-2 py-1 rounded hover:text-slate-700 transition-all";
-                btnWithout.className = "px-2 py-1 rounded bg-white shadow-sm text-indigo-600 transition-all";
+                btnWith.className = "px-1.5 py-0.5 rounded hover:text-slate-700 transition-all";
+                btnWithout.className = "px-1.5 py-0.5 rounded bg-white shadow-sm text-indigo-600 transition-all";
             }
             calculate();
         }
 
-        // Toggle Function for Salary
         function setSalaryMode(mode) {
             currentSalaryMode = mode;
             const btnTotal = document.getElementById('btn-mode-total');
@@ -489,19 +453,18 @@
             const containerDetailed = document.getElementById('salary-detailed-container');
 
             if (mode === 'total') {
-                btnTotal.className = "px-2 py-1 rounded bg-white shadow-sm text-indigo-600 transition-all";
-                btnDetailed.className = "px-2 py-1 rounded hover:text-slate-700 transition-all";
+                btnTotal.className = "px-1.5 py-0.5 rounded bg-white shadow-sm text-indigo-600 transition-all";
+                btnDetailed.className = "px-1.5 py-0.5 rounded hover:text-slate-700 transition-all";
                 containerTotal.classList.remove('hidden');
                 containerDetailed.classList.add('hidden');
                 containerDetailed.classList.remove('flex');
             } else {
-                btnTotal.className = "px-2 py-1 rounded hover:text-slate-700 transition-all";
-                btnDetailed.className = "px-2 py-1 rounded bg-white shadow-sm text-indigo-600 transition-all";
+                btnTotal.className = "px-1.5 py-0.5 rounded hover:text-slate-700 transition-all";
+                btnDetailed.className = "px-1.5 py-0.5 rounded bg-white shadow-sm text-indigo-600 transition-all";
                 containerTotal.classList.add('hidden');
                 containerDetailed.classList.remove('hidden');
                 containerDetailed.classList.add('flex');
                 
-                // Add one row if it's completely empty
                 if(document.getElementById('staff-list').children.length === 0) {
                     addStaffRow();
                 }
@@ -509,24 +472,22 @@
             calculate(); 
         }
 
-        // Dynamic Staff Rows
+        // Dynamic Staff Logic
         function addStaffRow() {
             const list = document.getElementById('staff-list');
             const row = document.createElement('div');
-            row.className = 'flex gap-2 items-center staff-row group';
+            row.className = 'flex gap-1.5 items-center staff-row group';
             row.innerHTML = `
-                <input type="text" placeholder="Name/Role" class="w-2/5 rounded-md border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
+                <input type="text" placeholder="Name/Role" class="w-2/5 rounded-md border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
                 <div class="relative w-3/5">
-                    <div class="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none text-slate-500 font-medium text-xs">₹</div>
-                    <input type="text" inputmode="decimal" placeholder="0.00" class="calc-input currency-input staff-salary-input w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 pl-5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
+                    <div class="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none text-slate-500 font-medium text-[10px]">₹</div>
+                    <input type="text" inputmode="decimal" placeholder="0.00" class="calc-input currency-input staff-salary-input w-full rounded-md border border-slate-200 bg-white px-2 py-1 pl-5 text-xs text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all">
                 </div>
-                <button type="button" onclick="removeStaffRow(this)" class="text-slate-400 hover:text-rose-500 transition-colors p-1 flex-shrink-0" title="Remove">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                <button type="button" onclick="removeStaffRow(this)" class="text-slate-400 hover:text-rose-500 transition-colors p-0.5 flex-shrink-0" title="Remove">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                 </button>
             `;
             list.appendChild(row);
-            
-            // Attach format listener to the new input
             const newSalaryInput = row.querySelector('.staff-salary-input');
             newSalaryInput.addEventListener('input', (e) => handleNumberInput(e, true));
         }
@@ -536,17 +497,15 @@
             calculate();
         }
 
-        // Add initial row for the detailed view
         addStaffRow();
 
-        // Utility: Parse number safely (removes commas)
+        // Utilities
         const parseNum = (val) => {
             if (!val) return 0;
             const cleanStr = String(val).replace(/,/g, '');
             return parseFloat(cleanStr) || 0;
         };
 
-        // Utility: Format to Indian Rupees
         const formatCurrency = (amount) => {
             return new Intl.NumberFormat('en-IN', { 
                 style: 'currency', 
@@ -555,24 +514,15 @@
             }).format(amount);
         };
 
-        // Auto-format Inputs with Commas
         function handleNumberInput(e, isCurrency) {
             let rawValue = e.target.value.replace(/[^0-9.]/g, '');
-            
             let parts = rawValue.split('.');
-            if (parts.length > 2) {
-                parts = [parts[0], parts.slice(1).join('')];
-            }
-
-            if (parts[0] !== '' && isCurrency) {
-                parts[0] = parseInt(parts[0], 10).toLocaleString('en-IN');
-            }
-
+            if (parts.length > 2) parts = [parts[0], parts.slice(1).join('')];
+            if (parts[0] !== '' && isCurrency) parts[0] = parseInt(parts[0], 10).toLocaleString('en-IN');
             e.target.value = parts.join('.');
             calculate();
         }
 
-        // Attach listeners to static inputs
         document.querySelectorAll('.currency-input:not(.staff-salary-input)').forEach(input => {
             input.addEventListener('input', (e) => handleNumberInput(e, true));
         });
@@ -580,26 +530,30 @@
             input.addEventListener('input', (e) => handleNumberInput(e, false));
         });
 
-        // Main calculation logic
+        function toggleDropdown(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Main Core Logic
         function calculate() {
             let rent = parseNum(document.getElementById('rent').value);
-            
-            // Add 18% GST to rent if 'without GST' mode is active
-            if (rentGstMode === 'without') {
-                rent = rent * 1.18; 
-            }
+            if (rentGstMode === 'without') rent = rent * 1.18; 
             
             const internet = parseNum(document.getElementById('internet').value);
-            
-            // Salary calculation based on selected mode
             let salary = 0;
+            
             if (currentSalaryMode === 'total') {
                 salary = parseNum(document.getElementById('salary').value);
             } else {
-                const staffInputs = document.querySelectorAll('.staff-salary-input');
-                staffInputs.forEach(input => {
-                    salary += parseNum(input.value);
-                });
+                document.querySelectorAll('.staff-salary-input').forEach(input => salary += parseNum(input.value));
             }
             
             const electricity = parseNum(document.getElementById('electricity').value);
@@ -611,7 +565,7 @@
             const marginPct = parseNum(document.getElementById('margin').value);
             const target = parseNum(document.getElementById('target').value);
 
-            // Calculations - Apply Timeframe Multiplier to base values
+            // Timeframe Adjustments
             const totalFixed = (rent + salary + internet) * timeMultiplier;
             const totalVariable = (electricity + stationary + misc + marketing) * timeMultiplier;
             const totalExpenses = totalFixed + totalVariable;
@@ -626,12 +580,12 @@
             const requiredMargin = scaledRevenue > 0 ? ((totalExpenses + scaledTarget) / scaledRevenue) * 100 : 0;
             const requiredMarginChange = requiredMargin - marginPct;
 
-            // Update Card Pills
+            // DOM Updates - Pills
             document.getElementById('pill-fixed-total').innerText = formatCurrency(totalFixed);
             document.getElementById('pill-variable-total').innerText = formatCurrency(totalVariable);
             document.getElementById('pill-margin-total').innerText = formatCurrency(marginAmount);
 
-            // Update Main Dashboard Header Status
+            // DOM Updates - Status Header
             const headerStatusBadge = document.getElementById('header-status-badge');
             const statusTitle = document.getElementById('status-title');
             const iconProfit = document.getElementById('icon-profit');
@@ -642,28 +596,29 @@
             mainAmount.innerText = formatCurrency(Math.abs(currentProfit));
 
             if (isProfitable && (currentProfit > 0 || scaledRevenue > 0)) {
-                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-4 px-5 py-2 rounded-xl text-white shadow-md bg-emerald-500 transition-colors duration-300 w-full md:w-auto";
+                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-3 px-4 py-1.5 rounded-lg text-white shadow-sm bg-emerald-500 transition-colors duration-300 w-full md:w-auto";
                 statusTitle.innerText = "Net Profit";
                 summaryBottomTitle.innerText = "Net Profit";
                 iconProfit.classList.remove('hidden');
                 iconLoss.classList.add('hidden');
             } else {
-                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-4 px-5 py-2 rounded-xl text-white shadow-md bg-rose-500 transition-colors duration-300 w-full md:w-auto";
+                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-3 px-4 py-1.5 rounded-lg text-white shadow-sm bg-rose-500 transition-colors duration-300 w-full md:w-auto";
                 statusTitle.innerText = "Net Loss";
                 summaryBottomTitle.innerText = "Net Loss";
                 iconProfit.classList.add('hidden');
                 iconLoss.classList.remove('hidden');
             }
 
+            // DOM Updates - Summary
             document.getElementById('summary-revenue').innerText = formatCurrency(scaledRevenue);
             document.getElementById('summary-fixed').innerText = formatCurrency(totalFixed);
             document.getElementById('summary-variable').innerText = formatCurrency(totalVariable);
             document.getElementById('summary-expenses').innerText = formatCurrency(totalExpenses);
             document.getElementById('summary-margin').innerText = formatCurrency(marginAmount);
             document.getElementById('summary-bottom-line').innerText = formatCurrency(Math.abs(currentProfit));
-            document.getElementById('summary-bottom-line').className = isProfitable && currentProfit > 0 ? "font-bold text-emerald-600 text-lg" : "font-bold text-rose-600 text-lg";
+            document.getElementById('summary-bottom-line').className = isProfitable && currentProfit > 0 ? "font-bold text-emerald-600 text-base" : "font-bold text-rose-600 text-base";
 
-            // Target Goal Updates
+            // DOM Updates - Target Goals
             const targetCard = document.getElementById('target-card');
             if (target > 0) {
                 targetCard.classList.remove('hidden');
@@ -688,7 +643,7 @@
                 targetCard.classList.add('hidden');
             }
 
-            // Ideal Growth Scenarios Update
+            // DOM Updates - Growth Scenarios
             const idealGrowthCard = document.getElementById('ideal-growth-card');
             if (scaledRevenue > 0) {
                 idealGrowthCard.classList.remove('hidden');
@@ -696,53 +651,27 @@
                 const topLineBoost = 50000;
                 const scaledTopLineBoost = topLineBoost * timeMultiplier;
                 
-                // Update dynamic text
                 document.getElementById('scen2-title').innerText = `+${formatCurrency(scaledTopLineBoost).replace('.00','')}`;
                 const shortBoost = scaledTopLineBoost >= 100000 ? `₹${scaledTopLineBoost/100000}L` : `₹${scaledTopLineBoost/1000}k`;
-                document.getElementById('scen3-subtitle').innerText = `20% Margin & +${shortBoost} Top Line`;
+                document.getElementById('scen3-subtitle').innerText = `20% Mgn & +${shortBoost} Rev`;
 
-                // Scenario 1: 20% margin with existing top line
-                const scen1MarginAmount = scaledRevenue * 0.20;
-                const scen1Profit = scen1MarginAmount - totalExpenses;
+                const scen1Profit = (scaledRevenue * 0.20) - totalExpenses;
+                const scen2Profit = ((scaledRevenue + scaledTopLineBoost) * (marginPct / 100)) - totalExpenses;
+                const scen3Profit = ((scaledRevenue + scaledTopLineBoost) * 0.20) - totalExpenses;
+
+                const setProfitColor = (el, val, positiveClass, negativeClass) => {
+                    el.innerText = formatCurrency(val);
+                    el.className = `block font-bold text-sm ${val >= 0 ? positiveClass : negativeClass}`;
+                };
+
+                setProfitColor(document.getElementById('ideal-scen1-profit'), scen1Profit, "text-emerald-600", "text-rose-600");
+                setProfitColor(document.getElementById('ideal-scen2-profit'), scen2Profit, "text-emerald-600", "text-rose-600");
                 
-                // Scenario 2: +50k (scaled) top line with existing margin
-                const newRev2 = scaledRevenue + scaledTopLineBoost;
-                const scen2MarginAmount = newRev2 * (marginPct / 100);
-                const scen2Profit = scen2MarginAmount - totalExpenses;
-                
-                // Scenario 3: +50k (scaled) top line with 20% margin
-                const newRev3 = scaledRevenue + scaledTopLineBoost;
-                const scen3MarginAmount = newRev3 * 0.20;
-                const scen3Profit = scen3MarginAmount - totalExpenses;
-
-                const scen1El = document.getElementById('ideal-scen1-profit');
-                scen1El.innerText = formatCurrency(scen1Profit);
-                scen1El.className = scen1Profit >= 0 ? "block font-bold text-base text-emerald-600" : "block font-bold text-base text-rose-600";
-
-                const scen2El = document.getElementById('ideal-scen2-profit');
-                scen2El.innerText = formatCurrency(scen2Profit);
-                scen2El.className = scen2Profit >= 0 ? "block font-bold text-base text-emerald-600" : "block font-bold text-base text-rose-600";
-
                 const scen3El = document.getElementById('ideal-scen3-profit');
                 scen3El.innerText = formatCurrency(scen3Profit);
-                scen3El.className = scen3Profit >= 0 ? "block font-black text-lg text-amber-700" : "block font-black text-lg text-rose-700";
-
+                scen3El.className = `block font-black text-base ${scen3Profit >= 0 ? "text-amber-700" : "text-rose-700"}`;
             } else {
                 idealGrowthCard.classList.add('hidden');
-            }
-        }
-
-        // Logic for opening dropdown lists in Ideal Growth Card
-        function toggleDropdown(contentId, iconId) {
-            const content = document.getElementById(contentId);
-            const icon = document.getElementById(iconId);
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
             }
         }
 
