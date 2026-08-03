@@ -167,7 +167,8 @@
 
                             <!-- STAFF SALARY -->
                             <div class="flex flex-col gap-1.5 flex-1 min-h-0">
-                                <div class="flex justify-between items-center">
+                                <!-- Added flex-shrink-0 to prevent label compression -->
+                                <div class="flex justify-between items-center flex-shrink-0">
                                     <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
                                         <i data-lucide="users" class="text-medblue-400 w-3 h-3"></i> Staff Salary
                                     </label>
@@ -180,7 +181,8 @@
                                     </div>
                                 </div>
                                 
-                                <div id="salary-total-container" class="relative">
+                                <!-- Added flex-shrink-0 to prevent input field compression -->
+                                <div id="salary-total-container" class="relative flex-shrink-0">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-medblue-500 font-bold text-xs">₹</div>
                                     <input type="text" inputmode="decimal" id="salary" placeholder="Total Amount" class="calc-input currency-input w-full rounded-lg glass-input border-2 border-medblue-400/60 px-3 py-2 pl-7 text-sm font-semibold text-slate-900 focus:border-medblue-600 focus:outline-none focus:ring-2 focus:ring-medblue-500/30 transition-all">
                                 </div>
