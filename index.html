@@ -358,46 +358,69 @@
             <!-- RIGHT COLUMN: Dashboard & Results -->
             <div class="lg:col-span-4 flex flex-col lg:h-full lg:overflow-y-auto custom-scrollbar pr-1 pb-1 gap-4">
                 
-                <!-- Financial Summary (Detailed & Minimal) -->
-                <div class="glass-card rounded-2xl p-4 flex-shrink-0 shadow-sm border border-white/60">
-                    <h3 class="text-sm font-bold text-medblue-900 mb-2.5 flex items-center justify-between">
-                        <span>Financial Summary</span>
-                        <i data-lucide="file-text" class="w-4 h-4 text-medblue-400"></i>
+                <!-- NEW CUTE COMPACT FINANCIAL SUMMARY -->
+                <div class="glass-card rounded-[20px] p-3.5 flex-shrink-0 shadow-sm border border-white/80 relative overflow-hidden group">
+                    <!-- Decorative Ambient Glow -->
+                    <div class="absolute -right-6 -top-6 w-20 h-20 bg-medblue-400/10 rounded-full blur-2xl group-hover:bg-medblue-400/20 transition-colors duration-500"></div>
+                    
+                    <h3 class="text-xs font-bold text-medblue-900 mb-2.5 flex items-center justify-between relative z-10">
+                        <span class="flex items-center gap-1.5">
+                            <div class="bg-medblue-100 p-1.5 rounded-lg text-medblue-600 shadow-sm"><i data-lucide="receipt" class="w-3.5 h-3.5"></i></div>
+                            Financial Summary
+                        </span>
                     </h3>
-                    <div class="space-y-1 text-[11px]">
-                        <div class="flex justify-between items-center py-1.5 bg-medgreen-50/60 backdrop-blur-sm px-2.5 rounded-lg border-2 border-medgreen-400/60 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]">
+                    
+                    <div class="flex flex-col gap-1.5 relative z-10">
+                        <!-- Top Line (Revenue) -->
+                        <div class="flex justify-between items-center py-1.5 px-3 bg-gradient-to-r from-medgreen-50/80 to-emerald-50/80 rounded-xl border border-medgreen-200/50 shadow-sm">
                             <div class="flex items-center gap-1.5">
-                                <span class="text-medgreen-800 font-bold">Gross Revenue</span>
-                                <span class="px-1.5 py-0.5 rounded border border-medgreen-500 bg-medgreen-100/80 text-medgreen-700 text-[8px] font-bold uppercase tracking-wide shadow-sm">Top Line</span>
+                                <div class="w-1.5 h-1.5 rounded-full bg-medgreen-400 shadow-[0_0_5px_rgba(51,154,102,0.6)]"></div>
+                                <span class="text-medgreen-800 font-bold text-[10px] uppercase tracking-wider">Gross Revenue</span>
                             </div>
-                            <span id="summary-revenue" class="font-bold text-medgreen-700 text-xs">₹0.00</span>
+                            <span id="summary-revenue" class="font-black text-medgreen-700 text-xs">₹0.00</span>
                         </div>
-                        <div class="flex justify-between items-center py-1 px-2.5">
-                            <span class="text-slate-600 font-medium">Margin Amount</span>
-                            <span id="summary-margin" class="font-bold text-medblue-600">₹0.00</span>
-                        </div>
-                        <div class="h-px bg-medblue-100/50 my-1 mx-2 rounded-full"></div>
-                        <div class="flex justify-between items-center py-1 px-2.5">
-                            <span class="text-slate-500 font-medium">Fixed Expenses</span>
-                            <span id="summary-fixed" class="font-semibold text-slate-600">₹0.00</span>
-                        </div>
-                        <div class="flex justify-between items-center py-1 px-2.5">
-                            <span class="text-slate-500 font-medium">Variable Expenses</span>
-                            <span id="summary-variable" class="font-semibold text-slate-600">₹0.00</span>
-                        </div>
-                        <div class="flex justify-between items-center py-1.5 px-2.5 bg-rose-50/40 rounded-lg mt-1 border-2 border-rose-300/60">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-rose-600 font-semibold">(-) Total Expenses</span>
-                                <span class="px-1.5 py-0.5 rounded border border-rose-400 bg-rose-100/80 text-rose-700 text-[8px] font-bold uppercase tracking-wide shadow-sm">Outflow</span>
+
+                        <!-- Middle Section: Combined Box for Margin & Expenses -->
+                        <div class="bg-white/50 backdrop-blur-md rounded-xl p-2.5 border border-white/60 shadow-sm flex flex-col gap-2">
+                            <!-- Margin -->
+                            <div class="flex justify-between items-center px-1">
+                                <span class="text-slate-600 font-bold text-[10px] flex items-center gap-1.5">
+                                    <i data-lucide="pie-chart" class="w-3.5 h-3.5 text-medblue-400"></i> Margin
+                                </span>
+                                <span id="summary-margin" class="font-bold text-medblue-600 text-xs">₹0.00</span>
                             </div>
-                            <span id="summary-expenses" class="font-bold text-rose-600">₹0.00</span>
+                            
+                            <!-- Dotted divider -->
+                            <div class="border-t border-dotted border-slate-300 mx-1"></div>
+                            
+                            <!-- 2-Col Grid for Fixed/Variable -->
+                            <div class="grid grid-cols-2 gap-2 px-0.5">
+                                <div class="flex flex-col justify-center bg-slate-50 rounded-lg py-1.5 px-2 border border-slate-100 shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]">
+                                    <span class="text-slate-400 font-extrabold text-[7px] uppercase tracking-widest mb-0.5">Fixed Exp</span>
+                                    <span id="summary-fixed" class="font-bold text-slate-700 text-[10px]">₹0.00</span>
+                                </div>
+                                <div class="flex flex-col justify-center bg-slate-50 rounded-lg py-1.5 px-2 border border-slate-100 shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]">
+                                    <span class="text-slate-400 font-extrabold text-[7px] uppercase tracking-widest mb-0.5">Var Exp</span>
+                                    <span id="summary-variable" class="font-bold text-slate-700 text-[10px]">₹0.00</span>
+                                </div>
+                            </div>
+
+                            <!-- Total Expenses -->
+                            <div class="flex justify-between items-center mt-0.5 px-2 py-1.5 bg-rose-50/70 rounded-lg border border-rose-100/80">
+                                <span class="text-rose-600 font-bold text-[9px] flex items-center gap-1.5 uppercase tracking-wider">
+                                    <i data-lucide="minus-circle" class="w-3 h-3 opacity-80"></i> Total Expenses
+                                </span>
+                                <span id="summary-expenses" class="font-bold text-rose-600 text-[11px]">₹0.00</span>
+                            </div>
                         </div>
-                        <div id="summary-bottom-row" class="flex justify-between items-center py-1.5 px-2.5 bg-white/70 backdrop-blur-md rounded-xl border-2 border-slate-300 mt-1.5 shadow-sm transition-colors duration-300">
+
+                        <!-- Bottom Line (Dynamic JS controlled) -->
+                        <div id="summary-bottom-row" class="flex justify-between items-center py-2 px-3 bg-slate-100/80 backdrop-blur-md rounded-xl border border-slate-200 mt-1 shadow-sm transition-all duration-300">
                             <div class="flex items-center gap-2">
-                                <span id="summary-bottom-title" class="text-slate-800 font-extrabold text-xs">Net Loss</span>
-                                <span id="summary-bottom-tag" class="px-1.5 py-0.5 rounded border border-slate-400 bg-slate-100 text-slate-600 text-[8px] font-bold uppercase tracking-wide shadow-sm transition-colors duration-300">Bottom Line</span>
+                                <span id="summary-bottom-title" class="text-slate-800 font-extrabold text-[11px] uppercase tracking-wider">Net Loss</span>
+                                <span id="summary-bottom-tag" class="px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-500 text-[7px] font-extrabold uppercase tracking-widest">Bottom Line</span>
                             </div>
-                            <span id="summary-bottom-line" class="font-black text-slate-900 text-sm tracking-tight">₹0.00</span>
+                            <span id="summary-bottom-line" class="font-black text-slate-500 text-sm tracking-tight">₹0.00</span>
                         </div>
                     </div>
                 </div>
@@ -703,6 +726,7 @@
             const iconNeutral = document.getElementById('icon-neutral');
             const mainAmount = document.getElementById('main-amount');
             
+            // Re-fetch Summary Elements (Updated for the Cute Design)
             const summaryBottomTitle = document.getElementById('summary-bottom-title');
             const summaryBottomRow = document.getElementById('summary-bottom-row');
             const summaryBottomTag = document.getElementById('summary-bottom-tag');
@@ -710,7 +734,7 @@
             mainAmount.innerText = formatCurrency(Math.abs(currentProfit));
 
             if (!isDataEntered) {
-                // Neutral State (Gray)
+                // Header Badge - Neutral State (Gray)
                 headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-2 px-2.5 py-1 md:px-3 md:py-1.5 rounded-xl text-slate-500 bg-slate-100/80 border border-slate-300 shadow-sm transition-colors duration-500 flex-shrink-0";
                 statusTitle.innerText = "Net Profit/Loss";
                 summaryBottomTitle.innerText = "Net Profit/Loss";
@@ -721,11 +745,11 @@
                 iconLoss.classList.add('hidden');
                 iconNeutral.classList.remove('hidden');
                 
-                // Summary Bottom row Neutral
-                summaryBottomRow.className = "flex justify-between items-center py-1.5 px-2.5 bg-white/70 backdrop-blur-md rounded-xl border-2 border-slate-300 mt-1.5 shadow-sm transition-colors duration-300";
-                summaryBottomTag.className = "px-1.5 py-0.5 rounded border border-slate-400 bg-slate-100 text-slate-600 text-[8px] font-bold uppercase tracking-wide shadow-sm transition-colors duration-300";
+                // Cute Summary Bottom row - Neutral
+                summaryBottomRow.className = "flex justify-between items-center py-2 px-3 bg-slate-100/80 backdrop-blur-md rounded-xl border border-slate-200 mt-1 shadow-sm transition-all duration-300";
+                summaryBottomTag.className = "px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-500 text-[7px] font-extrabold uppercase tracking-widest";
             } else if (isProfitable) {
-                // Profit State (Green)
+                // Header Badge - Profit State (Green)
                 headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-2 px-2.5 py-1 md:px-3 md:py-1.5 rounded-xl text-white shadow-lg bg-gradient-to-r from-medgreen-500 to-medgreen-600 shadow-medgreen-500/30 transition-colors duration-500 flex-shrink-0 border border-white/30";
                 statusTitle.innerText = "Net Profit";
                 summaryBottomTitle.innerText = "Net Profit";
@@ -736,11 +760,11 @@
                 iconLoss.classList.add('hidden');
                 iconNeutral.classList.add('hidden');
                 
-                // Summary Bottom row Profit
-                summaryBottomRow.className = "flex justify-between items-center py-1.5 px-2.5 bg-medgreen-50/70 backdrop-blur-md rounded-xl border-2 border-medgreen-400 mt-1.5 shadow-sm transition-colors duration-300";
-                summaryBottomTag.className = "px-1.5 py-0.5 rounded border border-medgreen-500 bg-medgreen-100 text-medgreen-700 text-[8px] font-bold uppercase tracking-wide shadow-sm transition-colors duration-300";
+                // Cute Summary Bottom row - Profit
+                summaryBottomRow.className = "flex justify-between items-center py-2 px-3 bg-medgreen-50/80 backdrop-blur-md rounded-xl border border-medgreen-300 mt-1 shadow-sm transition-all duration-300";
+                summaryBottomTag.className = "px-1.5 py-0.5 rounded-full bg-medgreen-200 text-medgreen-700 text-[7px] font-extrabold uppercase tracking-widest transition-colors duration-300";
             } else {
-                // Loss State (Red)
+                // Header Badge - Loss State (Red)
                 headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-2 px-2.5 py-1 md:px-3 md:py-1.5 rounded-xl text-white shadow-lg bg-gradient-to-r from-rose-500 to-red-500 shadow-rose-500/30 transition-colors duration-500 flex-shrink-0 border border-white/30";
                 statusTitle.innerText = "Net Loss";
                 summaryBottomTitle.innerText = "Net Loss";
@@ -751,19 +775,25 @@
                 iconLoss.classList.remove('hidden');
                 iconNeutral.classList.add('hidden');
                 
-                // Summary Bottom row Loss
-                summaryBottomRow.className = "flex justify-between items-center py-1.5 px-2.5 bg-rose-50/70 backdrop-blur-md rounded-xl border-2 border-rose-400 mt-1.5 shadow-sm transition-colors duration-300";
-                summaryBottomTag.className = "px-1.5 py-0.5 rounded border border-rose-500 bg-rose-100 text-rose-700 text-[8px] font-bold uppercase tracking-wide shadow-sm transition-colors duration-300";
+                // Cute Summary Bottom row - Loss
+                summaryBottomRow.className = "flex justify-between items-center py-2 px-3 bg-rose-50/80 backdrop-blur-md rounded-xl border border-rose-300 mt-1 shadow-sm transition-all duration-300";
+                summaryBottomTag.className = "px-1.5 py-0.5 rounded-full bg-rose-200 text-rose-700 text-[7px] font-extrabold uppercase tracking-widest transition-colors duration-300";
             }
 
-            // DOM Updates - Summary
+            // DOM Updates - Summary Text Fields
             document.getElementById('summary-revenue').innerText = formatCurrency(scaledRevenue);
             document.getElementById('summary-fixed').innerText = formatCurrency(totalFixed);
             document.getElementById('summary-variable').innerText = formatCurrency(totalVariable);
             document.getElementById('summary-expenses').innerText = formatCurrency(totalExpenses);
             document.getElementById('summary-margin').innerText = formatCurrency(marginAmount);
-            document.getElementById('summary-bottom-line').innerText = formatCurrency(Math.abs(currentProfit));
-            document.getElementById('summary-bottom-line').className = (!isDataEntered) ? "font-black text-slate-500 text-sm tracking-tight" : (isProfitable ? "font-black text-medgreen-600 text-sm tracking-tight" : "font-black text-rose-600 text-sm tracking-tight");
+            
+            const bottomLineText = document.getElementById('summary-bottom-line');
+            bottomLineText.innerText = formatCurrency(Math.abs(currentProfit));
+            bottomLineText.className = (!isDataEntered) 
+                ? "font-black text-slate-500 text-sm tracking-tight relative z-10" 
+                : (isProfitable 
+                    ? "font-black text-medgreen-600 text-sm tracking-tight relative z-10" 
+                    : "font-black text-rose-600 text-sm tracking-tight relative z-10");
 
             // DOM Updates - Target Goals (in left grid)
             const targetEmpty = document.getElementById('target-empty-state');
