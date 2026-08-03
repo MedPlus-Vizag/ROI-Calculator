@@ -129,7 +129,6 @@
                     </div>
                     <div id="icon-profit" class="hidden bg-white/20 p-1 rounded-md backdrop-blur-sm"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
                     <div id="icon-loss" class="hidden bg-white/20 p-1 rounded-md backdrop-blur-sm"><i data-lucide="trending-down" class="w-4 h-4"></i></div>
-                    <div id="icon-neutral" class="bg-white/20 p-1 rounded-md backdrop-blur-sm"><i data-lucide="minus" class="w-4 h-4"></i></div>
                 </div>
             </div>
         </div>
@@ -714,10 +713,9 @@
             const statusTag = document.getElementById('status-tag');
             const iconProfit = document.getElementById('icon-profit');
             const iconLoss = document.getElementById('icon-loss');
-            const iconNeutral = document.getElementById('icon-neutral');
             const mainAmount = document.getElementById('main-amount');
             
-            // Re-fetch Summary Elements (Updated for the Classic Elegant Design)
+            // Re-fetch Summary Elements
             const summaryBottomTitle = document.getElementById('summary-bottom-title');
             const summaryBottomRow = document.getElementById('summary-bottom-row');
             const summaryBottomTag = document.getElementById('summary-bottom-tag');
@@ -735,7 +733,6 @@
                 statusTag.className = "hidden";
                 iconProfit.classList.add('hidden');
                 iconLoss.classList.add('hidden');
-                iconNeutral.classList.remove('hidden');
                 
                 // Summary Bottom row - Neutral
                 summaryBottomRow.className = "mt-3 pt-3 flex justify-between items-end border-t-2 border-slate-200 transition-colors duration-500";
@@ -752,7 +749,6 @@
                 statusTag.className = "hidden";
                 iconProfit.classList.remove('hidden');
                 iconLoss.classList.add('hidden');
-                iconNeutral.classList.add('hidden');
                 
                 // Summary Bottom row - Profit
                 summaryBottomRow.className = "mt-3 pt-3 flex justify-between items-end border-t-2 border-medgreen-200 transition-colors duration-500";
@@ -769,7 +765,6 @@
                 statusTag.className = "hidden";
                 iconProfit.classList.add('hidden');
                 iconLoss.classList.remove('hidden');
-                iconNeutral.classList.add('hidden');
                 
                 // Summary Bottom row - Loss
                 summaryBottomRow.className = "mt-3 pt-3 flex justify-between items-end border-t-2 border-rose-200 transition-colors duration-500";
