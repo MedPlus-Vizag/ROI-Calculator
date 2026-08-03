@@ -102,28 +102,28 @@
             <div class="flex items-center gap-3 w-full md:w-auto justify-end">
                 
                 <!-- Minimal Desired Profit Input in Header -->
-                <div class="bg-indigo-50/80 backdrop-blur-md border-2 border-indigo-400/60 hover:border-indigo-500 focus-within:border-indigo-600 rounded-xl px-3 py-1.5 flex flex-col justify-center shadow-sm transition-colors">
+                <div class="bg-indigo-50/80 backdrop-blur-md border-2 border-indigo-400/60 hover:border-indigo-500 focus-within:border-indigo-600 rounded-xl px-2.5 py-1 md:px-3 md:py-1.5 flex flex-col justify-center shadow-sm transition-colors">
                     <label class="text-[9px] font-bold text-indigo-800 uppercase tracking-wider mb-0.5 flex items-center gap-1">
                         <i data-lucide="target" class="w-3 h-3"></i> Target Goal
                     </label>
                     <div class="flex items-center">
                         <span class="text-indigo-600 font-bold text-xs mr-1">₹</span>
-                        <input type="text" inputmode="decimal" id="target" placeholder="0.00" class="calc-input currency-input bg-transparent border-none text-sm font-black text-indigo-900 w-24 focus:outline-none p-0">
+                        <input type="text" inputmode="decimal" id="target" placeholder="0.00" class="calc-input currency-input bg-transparent border-none text-sm md:text-sm font-black text-indigo-900 w-20 md:w-24 focus:outline-none p-0">
                     </div>
                 </div>
 
-                <!-- Integrated Net Profit Section -->
-                <div id="header-status-badge" class="flex items-center justify-between md:justify-end gap-4 px-4 py-1.5 rounded-xl text-slate-500 bg-slate-100/80 border border-slate-300 shadow-sm transition-colors duration-500 flex-shrink-0">
+                <!-- Integrated Net Profit Section (Mobile Minimized) -->
+                <div id="header-status-badge" class="flex items-center justify-between md:justify-end gap-2 md:gap-4 px-3 py-1 md:px-4 md:py-1.5 rounded-xl text-slate-500 bg-slate-100/80 border border-slate-300 shadow-sm transition-colors duration-500 flex-shrink-0">
                     <div class="flex flex-col">
-                        <div class="flex items-center gap-2">
-                            <span id="status-title" class="text-[11px] font-bold opacity-80 tracking-wider uppercase">Net Profit/Loss</span>
-                            <span id="status-tag" class="px-1.5 py-0.5 rounded border border-current bg-white/20 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm opacity-70">Bottom Line</span>
+                        <div class="flex items-center gap-1.5 md:gap-2">
+                            <span id="status-title" class="text-[10px] md:text-[11px] font-bold opacity-80 tracking-wider uppercase">Net Profit/Loss</span>
+                            <span id="status-tag" class="px-1 md:px-1.5 py-0.5 rounded border border-current bg-white/20 text-[8px] md:text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm opacity-70">Bottom Line</span>
                         </div>
-                        <p id="main-amount" class="text-2xl font-black tracking-tight leading-none mt-0.5 drop-shadow-sm">₹0.00</p>
+                        <p id="main-amount" class="text-lg md:text-2xl font-black tracking-tight leading-none mt-0.5 drop-shadow-sm">₹0.00</p>
                     </div>
-                    <div id="icon-profit" class="hidden bg-white/20 p-1.5 rounded-lg backdrop-blur-sm"><i data-lucide="trending-up" class="w-6 h-6"></i></div>
-                    <div id="icon-loss" class="hidden bg-white/20 p-1.5 rounded-lg backdrop-blur-sm"><i data-lucide="trending-down" class="w-6 h-6"></i></div>
-                    <div id="icon-neutral" class="bg-white/20 p-1.5 rounded-lg backdrop-blur-sm"><i data-lucide="minus" class="w-6 h-6"></i></div>
+                    <div id="icon-profit" class="hidden bg-white/20 p-1 md:p-1.5 rounded-lg backdrop-blur-sm"><i data-lucide="trending-up" class="w-5 h-5 md:w-6 md:h-6"></i></div>
+                    <div id="icon-loss" class="hidden bg-white/20 p-1 md:p-1.5 rounded-lg backdrop-blur-sm"><i data-lucide="trending-down" class="w-5 h-5 md:w-6 md:h-6"></i></div>
+                    <div id="icon-neutral" class="bg-white/20 p-1 md:p-1.5 rounded-lg backdrop-blur-sm"><i data-lucide="minus" class="w-5 h-5 md:w-6 md:h-6"></i></div>
                 </div>
             </div>
         </div>
@@ -687,12 +687,12 @@
 
             if (!isDataEntered) {
                 // Neutral State (Gray)
-                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-3 px-4 py-1.5 rounded-xl text-slate-500 bg-slate-100/80 border border-slate-300 shadow-sm transition-colors duration-500 flex-shrink-0";
+                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-2 md:gap-4 px-3 py-1 md:px-4 md:py-1.5 rounded-xl text-slate-500 bg-slate-100/80 border border-slate-300 shadow-sm transition-colors duration-500 flex-shrink-0";
                 statusTitle.innerText = "Net Profit/Loss";
                 summaryBottomTitle.innerText = "Net Profit/Loss";
-                statusTitle.className = "text-[11px] font-bold opacity-80 tracking-wider uppercase";
-                mainAmount.className = "text-xl font-black tracking-tight leading-none mt-0.5 opacity-80";
-                statusTag.className = "px-1.5 py-0.5 rounded border border-current bg-transparent text-[9px] font-bold uppercase tracking-wider opacity-60";
+                statusTitle.className = "text-[10px] md:text-[11px] font-bold opacity-80 tracking-wider uppercase";
+                mainAmount.className = "text-lg md:text-2xl font-black tracking-tight leading-none mt-0.5 opacity-80";
+                statusTag.className = "px-1 md:px-1.5 py-0.5 rounded border border-current bg-transparent text-[8px] md:text-[9px] font-bold uppercase tracking-wider opacity-60";
                 iconProfit.classList.add('hidden');
                 iconLoss.classList.add('hidden');
                 iconNeutral.classList.remove('hidden');
@@ -702,12 +702,12 @@
                 summaryBottomTag.className = "px-1.5 py-0.5 rounded border border-slate-400 bg-slate-100 text-slate-600 text-[8px] font-bold uppercase tracking-wide shadow-sm transition-colors duration-300";
             } else if (isProfitable) {
                 // Profit State (Green)
-                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-3 px-4 py-1.5 rounded-xl text-white shadow-lg bg-gradient-to-r from-medgreen-500 to-medgreen-600 shadow-medgreen-500/30 transition-colors duration-500 flex-shrink-0 border border-white/30";
+                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-2 md:gap-4 px-3 py-1 md:px-4 md:py-1.5 rounded-xl text-white shadow-lg bg-gradient-to-r from-medgreen-500 to-medgreen-600 shadow-medgreen-500/30 transition-colors duration-500 flex-shrink-0 border border-white/30";
                 statusTitle.innerText = "Net Profit";
                 summaryBottomTitle.innerText = "Net Profit";
-                statusTitle.className = "text-[11px] font-bold opacity-100 tracking-wider uppercase";
-                mainAmount.className = "text-xl font-black tracking-tight leading-none mt-0.5 drop-shadow-sm";
-                statusTag.className = "px-1.5 py-0.5 rounded border border-white/30 bg-white/20 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm";
+                statusTitle.className = "text-[10px] md:text-[11px] font-bold opacity-100 tracking-wider uppercase";
+                mainAmount.className = "text-lg md:text-2xl font-black tracking-tight leading-none mt-0.5 drop-shadow-sm";
+                statusTag.className = "px-1 md:px-1.5 py-0.5 rounded border border-white/30 bg-white/20 text-[8px] md:text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm";
                 iconProfit.classList.remove('hidden');
                 iconLoss.classList.add('hidden');
                 iconNeutral.classList.add('hidden');
@@ -717,12 +717,12 @@
                 summaryBottomTag.className = "px-1.5 py-0.5 rounded border border-medgreen-500 bg-medgreen-100 text-medgreen-700 text-[8px] font-bold uppercase tracking-wide shadow-sm transition-colors duration-300";
             } else {
                 // Loss State (Red)
-                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-3 px-4 py-1.5 rounded-xl text-white shadow-lg bg-gradient-to-r from-rose-500 to-red-500 shadow-rose-500/30 transition-colors duration-500 flex-shrink-0 border border-white/30";
+                headerStatusBadge.className = "flex items-center justify-between md:justify-end gap-2 md:gap-4 px-3 py-1 md:px-4 md:py-1.5 rounded-xl text-white shadow-lg bg-gradient-to-r from-rose-500 to-red-500 shadow-rose-500/30 transition-colors duration-500 flex-shrink-0 border border-white/30";
                 statusTitle.innerText = "Net Loss";
                 summaryBottomTitle.innerText = "Net Loss";
-                statusTitle.className = "text-[11px] font-bold opacity-100 tracking-wider uppercase";
-                mainAmount.className = "text-xl font-black tracking-tight leading-none mt-0.5 drop-shadow-sm";
-                statusTag.className = "px-1.5 py-0.5 rounded border border-white/30 bg-white/20 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm";
+                statusTitle.className = "text-[10px] md:text-[11px] font-bold opacity-100 tracking-wider uppercase";
+                mainAmount.className = "text-lg md:text-2xl font-black tracking-tight leading-none mt-0.5 drop-shadow-sm";
+                statusTag.className = "px-1 md:px-1.5 py-0.5 rounded border border-white/30 bg-white/20 text-[8px] md:text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm";
                 iconProfit.classList.add('hidden');
                 iconLoss.classList.remove('hidden');
                 iconNeutral.classList.add('hidden');
